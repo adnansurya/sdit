@@ -1,0 +1,27 @@
+/*Atur jarak antar inputan form*/
+div.form-group {
+	margin: 40px 0px;
+}
+
+/*Atur tombol kembali ke halaman awal*/
+div.o-hidden a:nth-child(1) {
+	position: absolute;
+	height: 100px;
+	border-radius: 0px !important;
+	z-index: 1;
+}
+div.o-hidden a:nth-child(1) i {
+	color: white;
+	font-size: 20px;
+	line-height: 4;
+}
+
+/*Menebalkan sedikit tag label*/
+label {
+	font-weight: 900;
+}
+
+/*Menambahkan gaya untuk tag select*/
+form select {
+	padding: 1rem 1rem !important; 
+}
