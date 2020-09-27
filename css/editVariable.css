@@ -1,9 +1,0 @@
-/*Menebalkan sedikit tag label*/
-label {
-	font-weight: 900;
-}
-
-/*Menambahkan gaya untuk tag select*/
-form select {
-	padding: 1rem 1rem !important; 
-}
