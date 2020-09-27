@@ -13,16 +13,19 @@
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                </li>                   
-                <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                </li> 
+                <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
+                <li>
+                    <a href="transaction_add.php"><i class="menu-icon fa fa-plus"></i>Tambah Transaksi</a>
+                </li>    
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>
+                        Sample Pages
+                    </a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        <li><i class="menu-icon fa fa-plus"></i><a href="#">Sample</a></li>            
                     </ul>
-                </li>
+                </li>                                  
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
