@@ -17,6 +17,10 @@
                 <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
                 <li>
                     <a href="transaction_add.php"><i class="menu-icon fa fa-plus"></i>Tambah Transaksi</a>
+                </li>  
+                <h3 class="menu-title">Faktor External</h3><!-- /.menu-title -->
+                <li>
+                    <a href="variabel.php"><i class="menu-icon fa fa-usd"></i>Variabel</a>
                 </li>    
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>
