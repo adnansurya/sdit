@@ -5,8 +5,9 @@
 <head>
     <?php include('partials/head.php'); ?>
     <title><?php echo $webname; ?> - HTML5 Admin Template</title>
-    <link rel="stylesheet" href="vendors/chosen/chosen.min.css">
-
+    <link rel="stylesheet" href="vendors/chosen/chosen.min.css">   
+    
+	
 </head>
 
 <body>
@@ -78,9 +79,9 @@
                                 <div class="row form-group">                                    
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
-                                            <div class="col col-md-6">
+                                            <div class="col col-md-3">
                                                 <input type="text" id="text-input" name="text-input" class="form-control"> 
-                                                <small class="form-text text-muted">Kuantum</small>                                                                           
+                                                <small class="form-text text-muted">Quantity</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
                                                 <input type="text" id="text-input" name="text-input" class="form-control"> 
@@ -98,10 +99,33 @@
                                         <small class="form-text text-muted">No. PR</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="date" id="text-input" name="text-input" class="form-control">                                         
                                         <small class="form-text text-muted">Tanggal PR</small>                                       
                                     </div>
                                 </div> 
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">OE <small>(Owner Estimate)</small></label>
+                                    </div>                                    
+                                    <div class="col col-md-3">
+                                        <input type="date" id="text-input" name="text-input" class="form-control"> 
+                                        <small class="form-text text-muted">Tanggal OE</small>                                       
+                                    </div>                                    
+                                </div>    
+                                <div class="row form-group">                                    
+                                    <div class="col-md-9 offset-md-3">
+                                        <div class="row">
+                                            <div class="col col-md-6">
+                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
+                                            </div> 
+                                            <div class="col col-md-6">
+                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
+                                            </div> 
+                                        </div>                                                                         
+                                    </div>                                    
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
@@ -111,7 +135,7 @@
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="date" id="text-input" name="text-input" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
                                 </div>    
@@ -129,29 +153,7 @@
                                         </div>                                                                         
                                     </div>                                    
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="text-input" class=" form-control-label">OE <small>(Owner Estimate)</small></label>
-                                    </div>                                    
-                                    <div class="col col-md-3">
-                                        <input type="text" id="text-input" name="text-input" class="form-control"> 
-                                        <small class="form-text text-muted">Tanggal OE</small>                                       
-                                    </div>                                    
-                                </div>    
-                                <div class="row form-group">                                    
-                                    <div class="col-md-9 offset-md-3">
-                                        <div class="row">
-                                            <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
-                                                <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
-                                            </div> 
-                                            <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
-                                                <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
-                                            </div> 
-                                        </div>                                                                         
-                                    </div>                                    
-                                </div> 
+                                
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Total Harga</label>
@@ -173,7 +175,7 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Status</label>
                                     </div>
-                                    <div class="col-12 col-md-9">
+                                    <div class="col-12 col-md-4">
                                         <input type="text" id="text-input" name="text-input" class="form-control">                                        
                                     </div>
                                 </div> 
@@ -184,7 +186,13 @@
                                     <div class="col-12 col-md-9">
                                         <textarea name="textarea-input" id="textarea-input" rows="2" class="form-control"></textarea>
                                     </div>
-                                </div>                                   
+                                </div>  
+                                <div class="row form-group">
+                                    <div class="col-md-9 offset-md-3">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Confirm</button>
+                                    </div>                                    
+                                </div>                                 
                             </form>
                         </div>
                     </div>
@@ -252,7 +260,7 @@
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">No. Telp</label>
                             </div>
-                            <div class="col-12 col-md-9">
+                            <div class="col-12 col-md-4">
                                 <input type="text" id="text-input" name="text-input" class="form-control">                                                           
                             </div>
                         </div>                   
@@ -268,8 +276,8 @@
 
     <!-- Right Panel -->
     <?php include('partials/script.php'); ?>
-    <script src="vendors/chosen/chosen.jquery.min.js"></script>
-
+    <script src="vendors/chosen/chosen.jquery.min.js"></script>     	  
+    
     <script>
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
@@ -277,7 +285,9 @@
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
+            
         });
+        
     </script>
     
    
