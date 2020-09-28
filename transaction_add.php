@@ -189,8 +189,8 @@
                                 </div>  
                                 <div class="row form-group">
                                     <div class="col-md-9 offset-md-3">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Confirm</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-success">Simpan</button>
                                     </div>                                    
                                 </div>                                 
                             </form>
@@ -210,14 +210,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">                                
+                <form action="form/perusahaan_add.php" method="post" class="form-horizontal">    
+                    <div class="modal-body">                                                
                         <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Kode Perusahaan</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control">                                                           
+                                <input type="text" id="text-input" name="kode_usaha" class="form-control">                                                           
                             </div>
                         </div>
                         <div class="row form-group">
@@ -225,15 +225,16 @@
                                 <label for="text-input" class="form-control-label">Nama Perusahaan</label>
                             </div>
                             <div class="col-md-2">
-                                <select name="" id="" class="form-control">
-                                    <option value="">PT</option>
-                                    <option value="">PT</option>
-                                    <option value="">PT</option>
+                                <select name="kode_badan" id="" class="form-control">
+                                    <option value="PT">PT</option>
+                                    <option value="CV">CV</option>
+                                    <option value="Perorangan">Perorangan</option>
+                                    <option value="Pte Ltd">Pte Ltd</option>
                                 </select>
                                 <small class="form-text text-muted">Kode Badan</small>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" id="text-input" name="text-input" class="form-control">
+                                <input type="text" id="text-input" name="nama_usaha" class="form-control">
                                 <small class="form-text text-muted">Nama</small>
                             </div>
                         </div> 
@@ -242,17 +243,17 @@
                                 <label for="textarea-input" class=" form-control-label">Alamat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="textarea-input" id="textarea-input" rows="2" class="form-control"></textarea>
+                                <textarea name="alamat" id="textarea-input" rows="2" class="form-control"></textarea>
                             </div>
                         </div> 
                         <div class="row form-group">
                             
                             <div class="col-md-6 offset-md-3">                                
-                                <input type="text" id="text-input" name="text-input" class="form-control">
+                                <input type="text" id="text-input" name="provinsi" class="form-control">
                                 <small class="form-text text-muted">Provinsi</small>                                                              
                             </div>
                             <div class="col-md-3">
-                                <input type="text" id="text-input" name="text-input" class="form-control">      
+                                <input type="text" id="text-input" name="negara" class="form-control">      
                                 <small class="form-text text-muted">Negara</small>                                                        
                             </div>
                         </div>  
@@ -261,15 +262,16 @@
                                 <label for="text-input" class=" form-control-label">No. Telp</label>
                             </div>
                             <div class="col-12 col-md-4">
-                                <input type="text" id="text-input" name="text-input" class="form-control">                                                           
+                                <input type="text" id="text-input" name="telp" class="form-control">                                                           
                             </div>
-                        </div>                   
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Confirm</button>
-                </div>
+                        </div>                                       
+                    </div>
+               
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="row form-group">                                   
                                     <div class="col-12 col-md-7 offset-md-5">                                    
-                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="submit" class="btn btn-success">Update</button>
                                     </div>
                                 </div>                                 
                             </form>                                 
