@@ -45,18 +45,15 @@
                         </div>
                         <div class="card-body">                                  
                             <select data-placeholder="Pilih Perusahaan" class="standardSelect">
-                                <option value=""></option>
-                                <option value="United States">United States</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Aland Islands">Aland Islands</option>
-                                <option value="Albania">Albania</option>
-                                <option value="Algeria">Algeria</option>
-                                <option value="American Samoa">American Samoa</option>
-                                <option value="Andorra">Andorra</option>
-                                <option value="Angola">Angola</option>
-                                <option value="Anguilla">Anguilla</option>
-                                <option value="Antarctica">Antarctica</option>
+                                <option value=""></option>                                
+                                <?php 
+                                    include('api/db_access.php');                                
+                                    $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
+                                    while ($row = mysqli_fetch_array($load)){
+                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$_POST['kode_badan'].' '.$row['nama_perusahaan'].'</option>';
+                                        
+                                    }
+                                ?>
                             </select>                                
                         </div>
                     </div>
@@ -269,7 +266,7 @@
                
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </form>
             </div>
