@@ -26,7 +26,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Tambah Transaksi</h1>
+                        <h1>Transaksi Baru</h1>
                     </div>
                 </div>
             </div>            
@@ -44,14 +44,13 @@
                             
                         </div>
                         <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel">
+                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan">
                                 <option value=""></option>                                
                                 <?php 
                                     include('api/db_access.php');                                
                                     $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
                                     while ($row = mysqli_fetch_array($load)){
-                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';
-                                        
+                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
                                     }
                                 ?>
                             </select>  
@@ -65,7 +64,7 @@
                             <strong>Data Transaksi</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">                                
+                            <form id="transactionForm" action="" method="post" enctype="multipart/form-data" class="form-horizontal">                                
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Nama Barang</label>
@@ -78,11 +77,16 @@
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-3">
-                                                <input type="text" id="text-input" name="qty" class="form-control"> 
+                                                <input type="text" id="qty" name="qty" class="form-control"> 
                                                 <small class="form-text text-muted">Quantity</small>                                                                           
                                             </div> 
-                                            <div class="col col-md-6">
-                                                <input type="text" id="satuan" name="satuan" class="form-control"> 
+                                            <div class="col col-md-3">
+                                            <select name="satuan" id="satuan" class="form-control">
+                                                <option value="ton">ton</option>
+                                                <option value="kg">kg</option>
+                                                <option value="Liter">Liter</option>
+                                                <option value="m3">m3</option>
+                                            </select>
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -103,7 +107,7 @@
                                 </div> 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="text-input" class=" form-control-label">OE <small>(Owner Estimate)</small></label>
+                                        <label for="text-input" class="form-control-label">OE <small>(Owner Estimate)</small></label>
                                     </div>                                    
                                     <div class="col col-md-3">
                                         <input type="date" id="tgl_oe" name="tgl_oe" class="form-control"> 
@@ -118,7 +122,7 @@
                                                 <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_oe_rp" name="harga_oe_rp" class="form-control"> 
+                                                <input type="text" id="harga_oe_rp"  name="harga_oe_rp" class="form-control"> 
                                                 <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -142,11 +146,11 @@
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_po_usd" name="harga_po_usd" class="form-control"> 
-                                                <small class="form-text text-muted">Harga PO (USD)</small>                                                                           
+                                                <small class="form-text text-muted">Harga PO (USD)<small class="satuan-txt"></small></small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_po_rp" name="harga_po_rp" class="form-control"> 
-                                                <small class="form-text text-muted">Harga PO (Rp.)</small>                                                                             
+                                                <small class="form-text text-muted">Harga PO (Rp.)<small class="satuan-txt"></small></small>                                                                             
                                             </div> 
                                         </div>                                                                         
                                     </div>                                    
@@ -159,11 +163,11 @@
                                     <div class="col col-md-9">
                                         <div class="row form-group">
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="total_harga_usd" class="form-control"> 
+                                                <input type="text" id="total_harga_usd" name="total_harga_usd" class="form-control"> 
                                                 <small class="form-text">(USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="total_harga_rp" class="form-control"> 
+                                                <input type="text" id="total_harga_rp" name="total_harga_rp" class="form-control"> 
                                                 <small class="form-text">(Rp.)</small>                                                                             
                                             </div>                                    
                                         </div>                                          
@@ -286,6 +290,28 @@
                 width: "100%"
             });
 
+            var satuan =  jQuery('#satuan').val();
+            let qty = 0;
+            let harga_oe_usd = 0;
+            let harga_oe_rp = 0;
+            let harga_po_usd = 0;
+            let harga_po_rp = 0;
+            let total_harga_rp = 0;
+            let total_harga_usd = 0;            
+            jQuery('.satuan-txt').text(" / " +  satuan);
+
+        jQuery('#satuan').change(function() {
+            var satuan =  jQuery(this).val();
+            if(satuan != ""){
+                jQuery('.satuan-txt').text(" / " + satuan);
+            }else{
+                jQuery('.satuan-txt').text("");
+            }
+            
+           
+        });
+        
+
         jQuery('#perusahaanSel').change(function() {
             jQuery('#data-usaha').empty();
             jQuery('#data-usaha').removeClass('mt-4');
@@ -321,7 +347,7 @@
         jQuery('#harga_oe_usd').keyup(function() {
 
             let tgl_oe = jQuery('#tgl_oe').val();
-            
+            harga_oe_usd = parseFloat(jQuery(this).val());
 
             jQuery.ajax({
             
@@ -330,9 +356,8 @@
                 data: {"tanggal": tgl_oe },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);
-                    let usd = parseFloat(jQuery('#harga_oe_usd').val());
-                    let hasil = kurs*usd;
+                    let kurs = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = kurs*harga_oe_usd;
                     if(!isNaN(hasil)){
                         jQuery('#harga_oe_rp').val(hasil.toFixed(2));   
                     }else{
@@ -347,6 +372,7 @@
         jQuery('#harga_oe_rp').keyup(function() {
 
             let tgl_oe = jQuery('#tgl_oe').val();
+            harga_oe_rp = parseFloat(jQuery(this).val());
 
 
             jQuery.ajax({
@@ -356,9 +382,8 @@
                 data: {"tanggal": tgl_oe },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);
-                    let rp = parseFloat(jQuery('#harga_oe_rp').val());
-                    let hasil = rp/kurs;
+                    let kurs = parseFloat(varObj.data.usd_to_rp);                
+                    let hasil = harga_oe_rp/kurs;
                     if(!isNaN(hasil)){
                         jQuery('#harga_oe_usd').val(hasil.toFixed(2));   
                     }else{
@@ -376,6 +401,7 @@
         jQuery('#harga_po_usd').keyup(function() {
 
             let tgl_po = jQuery('#tgl_po').val();
+            harga_po_usd = parseFloat(jQuery(this).val());
 
 
             jQuery.ajax({
@@ -385,11 +411,14 @@
                 data: {"tanggal": tgl_po },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);
-                    let usd = parseFloat(jQuery('#harga_po_usd').val());
-                    let hasil = kurs*usd;
-                    if(!isNaN(hasil)){
-                        jQuery('#harga_po_rp').val(hasil.toFixed(2));   
+                    let kurs = parseFloat(varObj.data.usd_to_rp);                    
+                    harga_po_rp = kurs*harga_po_usd;
+                    if(!isNaN(harga_po_rp)){
+                        jQuery('#harga_po_rp').val(harga_po_rp.toFixed(2));  
+                        total_harga_usd = harga_po_usd*qty; 
+                        jQuery('#total_harga_usd').val(total_harga_usd.toFixed(2)); 
+                        total_harga_rp = harga_po_rp*qty; 
+                        jQuery('#total_harga_rp').val(total_harga_rp.toFixed(2)); 
                     }else{
                         jQuery('#harga_po_rp').val("0"); 
                     }                    
@@ -399,31 +428,56 @@
 
         });
 
-    jQuery('#harga_po_rp').keyup(function() {
+        jQuery('#harga_po_rp').keyup(function() {
 
-        let tgl_po = jQuery('#tgl_po').val();
+            let tgl_po = jQuery('#tgl_po').val();
+            harga_po_rp = parseFloat(jQuery(this).val());
 
 
-        jQuery.ajax({
+            jQuery.ajax({
 
-            type: "GET",
-            url: 'api/get_variabel.php',
-            data: {"tanggal": tgl_po },
-            success: function(data){
-                let varObj = JSON.parse(data);
-                let kurs = parseFloat(varObj.data.usd_to_rp);
-                let rp = parseFloat(jQuery('#harga_po_rp').val());
-                let hasil = rp/kurs;
-                if(!isNaN(hasil)){
-                    jQuery('#harga_po_usd').val(hasil.toFixed(2));   
-                }else{
-                    jQuery('#harga_po_usd').val("0"); 
-                }                    
-                                                                
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_po },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    let kurs = parseFloat(varObj.data.usd_to_rp);                    
+                    harga_po_usd = harga_po_rp/kurs;
+                    console.log(harga_po_usd);
+                    if(!isNaN(harga_po_usd)){
+                        jQuery('#harga_po_usd').val(harga_po_usd.toFixed(2));
+                        total_harga_usd = harga_po_usd*qty; 
+                        jQuery('#total_harga_usd').val(total_harga_usd.toFixed(2)); 
+                        total_harga_rp = harga_po_rp*qty; 
+                        jQuery('#total_harga_rp').val(total_harga_rp.toFixed(2));  
+                       
+                    }else{
+                        jQuery('#harga_po_usd').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
+        jQuery('#qty').keyup(function() {
+            qty = parseFloat(jQuery(this).val());
+            total_harga_usd = harga_po_usd*qty;            
+            if(!isNaN(total_harga_usd)){
+                jQuery('#total_harga_usd').val(total_harga_usd.toFixed(2));
+            }else{
+                jQuery('#total_harga_usd').val("0");
             }
-        });  
+            total_harga_rp = harga_po_rp*qty;            
+            if(!isNaN(total_harga_rp)){
+                jQuery('#total_harga_rp').val(total_harga_rp.toFixed(2));
+            }else{
+                jQuery('#total_harga_rp').val("0");
+            }
+               
+        });
 
-    });
+        
         
     </script>
     

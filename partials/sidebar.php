@@ -16,7 +16,7 @@
                 </li> 
                 <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
                 <li>
-                    <a href="transaction_add.php"><i class="menu-icon fa fa-plus"></i>Tambah Transaksi</a>
+                    <a href="transaction_new.php"><i class="menu-icon fa fa-plus"></i>Transaksi Baru</a>
                 </li>  
                 <h3 class="menu-title">Database</h3><!-- /.menu-title -->
                 <li>

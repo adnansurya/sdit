@@ -11,7 +11,7 @@ if(isset($_POST['kode_usaha']) && isset($_POST['kode_badan']) && isset($_POST['n
         echo 'Error query perusahaan';
         echo $sql;
     }else{
-        header('Location: ../transaction_add.php'); 
+        header('Location: ../transaction_new.php'); 
     }
     
 }else{
