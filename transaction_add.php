@@ -44,17 +44,18 @@
                             
                         </div>
                         <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect">
+                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel">
                                 <option value=""></option>                                
                                 <?php 
                                     include('api/db_access.php');                                
                                     $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
                                     while ($row = mysqli_fetch_array($load)){
-                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$_POST['kode_badan'].' '.$row['nama_perusahaan'].'</option>';
+                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';
                                         
                                     }
                                 ?>
-                            </select>                                
+                            </select>  
+                            <div id="data-usaha"></div>                            
                         </div>
                     </div>
                 </div>
@@ -284,6 +285,36 @@
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
+
+        jQuery('#perusahaanSel').change(function() {
+            jQuery('#data-usaha').empty();
+            jQuery('#data-usaha').removeClass('mt-4');
+
+            let idPerusahaan = jQuery(this).val();
+            
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_perusahaan.php',
+                data: {"id": idPerusahaan },
+                success: function(data){
+                    let usahaObj = JSON.parse(data);
+                    if(usahaObj.result != 'unknown'){
+                        jQuery('#data-usaha').addClass('mt-4');
+                        jQuery('#data-usaha').append(`
+                            <h6><b>`+usahaObj.data.kode_badan+` `+ usahaObj.data.nama_perusahaan +`</b></h6><br>
+                            <p><small>Kode </small> `+usahaObj.data.kode_perusahaan+`<br>
+                            <small>Alamat </small> `+usahaObj.data.alamat+`<br>
+                            <small>Provinsi </small> `+usahaObj.data.provinsi+`<br>
+                            <small>Negara </small> `+usahaObj.data.negara+`<br>
+                            <small>No. Telp </small> `+usahaObj.data.no_telp+`</p>
+                        `);
+                    }                    
+                }
+            });
+
+        });
             
         });
         
