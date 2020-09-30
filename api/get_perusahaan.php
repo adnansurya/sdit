@@ -1,6 +1,7 @@
 <?php
 include('../api/db_access.php');
 if(isset($_GET['id'])){
+    $resObj = new \stdClass();
     $resObj -> result = "";
 
            
