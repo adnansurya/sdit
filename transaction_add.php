@@ -71,18 +71,18 @@
                                         <label for="text-input" class=" form-control-label">Nama Barang</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="text-input" class="form-control">                                        
+                                        <input type="text" id="text-input" name="nama_barang" class="form-control">                                        
                                     </div>
                                 </div> 
                                 <div class="row form-group">                                    
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-3">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="text-input" name="qty" class="form-control"> 
                                                 <small class="form-text text-muted">Quantity</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="satuan" name="satuan" class="form-control"> 
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -93,11 +93,11 @@
                                         <label for="text-input" class=" form-control-label">PR</label>
                                     </div>
                                     <div class="col col-md-6">
-                                        <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="text" id="text-input" name="no_pr" class="form-control"> 
                                         <small class="form-text text-muted">No. PR</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="date" id="text-input" name="text-input" class="form-control">                                         
+                                        <input type="date" id="text-input" name="tgl_pr" class="form-control">                                         
                                         <small class="form-text text-muted">Tanggal PR</small>                                       
                                     </div>
                                 </div> 
@@ -106,7 +106,7 @@
                                         <label for="text-input" class=" form-control-label">OE <small>(Owner Estimate)</small></label>
                                     </div>                                    
                                     <div class="col col-md-3">
-                                        <input type="date" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="date" id="tgl_oe" name="tgl_oe" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal OE</small>                                       
                                     </div>                                    
                                 </div>    
@@ -114,11 +114,11 @@
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="harga_oe_usd" name="harga_oe_usd" class="form-control"> 
                                                 <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="harga_oe_rp" name="harga_oe_rp" class="form-control"> 
                                                 <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -129,11 +129,11 @@
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
                                     </div>
                                     <div class="col col-md-6">
-                                        <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="text" id="text-input" name="no_po" class="form-control"> 
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="date" id="text-input" name="text-input" class="form-control"> 
+                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
                                 </div>    
@@ -141,11 +141,11 @@
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="harga_po_usd" name="harga_po_usd" class="form-control"> 
                                                 <small class="form-text text-muted">Harga PO (USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="harga_po_rp" name="harga_po_rp" class="form-control"> 
                                                 <small class="form-text text-muted">Harga PO (Rp.)</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -159,11 +159,11 @@
                                     <div class="col col-md-9">
                                         <div class="row form-group">
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="text-input" name="total_harga_usd" class="form-control"> 
                                                 <small class="form-text">(USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="text-input" class="form-control"> 
+                                                <input type="text" id="text-input" name="total_harga_rp" class="form-control"> 
                                                 <small class="form-text">(Rp.)</small>                                                                             
                                             </div>                                    
                                         </div>                                          
@@ -174,7 +174,7 @@
                                         <label for="text-input" class=" form-control-label">Status</label>
                                     </div>
                                     <div class="col-12 col-md-4">
-                                        <input type="text" id="text-input" name="text-input" class="form-control">                                        
+                                        <input type="text" id="text-input" name="status" class="form-control">                                        
                                     </div>
                                 </div> 
                                 <div class="row form-group">
@@ -182,7 +182,7 @@
                                         <label for="textarea-input" class=" form-control-label">Catatan</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="textarea-input" id="textarea-input" rows="2" class="form-control"></textarea>
+                                        <textarea name="catatan" id="textarea-input" rows="2" class="form-control"></textarea>
                                     </div>
                                 </div>  
                                 <div class="row form-group">
@@ -317,6 +317,113 @@
         });
             
         });
+
+        jQuery('#harga_oe_usd').keyup(function() {
+
+            let tgl_oe = jQuery('#tgl_oe').val();
+            
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_oe },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    let kurs = parseFloat(varObj.data.usd_to_rp);
+                    let usd = parseFloat(jQuery('#harga_oe_usd').val());
+                    let hasil = kurs*usd;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_oe_rp').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_oe_rp').val("0"); 
+                    }                    
+                                                                       
+                }
+            });  
+
+        });
+
+        jQuery('#harga_oe_rp').keyup(function() {
+
+            let tgl_oe = jQuery('#tgl_oe').val();
+
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_oe },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    let kurs = parseFloat(varObj.data.usd_to_rp);
+                    let rp = parseFloat(jQuery('#harga_oe_rp').val());
+                    let hasil = rp/kurs;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_oe_usd').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_oe_usd').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
+
+
+
+        jQuery('#harga_po_usd').keyup(function() {
+
+            let tgl_po = jQuery('#tgl_po').val();
+
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_po },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    let kurs = parseFloat(varObj.data.usd_to_rp);
+                    let usd = parseFloat(jQuery('#harga_po_usd').val());
+                    let hasil = kurs*usd;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_po_rp').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_po_rp').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
+    jQuery('#harga_po_rp').keyup(function() {
+
+        let tgl_po = jQuery('#tgl_po').val();
+
+
+        jQuery.ajax({
+
+            type: "GET",
+            url: 'api/get_variabel.php',
+            data: {"tanggal": tgl_po },
+            success: function(data){
+                let varObj = JSON.parse(data);
+                let kurs = parseFloat(varObj.data.usd_to_rp);
+                let rp = parseFloat(jQuery('#harga_po_rp').val());
+                let hasil = rp/kurs;
+                if(!isNaN(hasil)){
+                    jQuery('#harga_po_usd').val(hasil.toFixed(2));   
+                }else{
+                    jQuery('#harga_po_usd').val("0"); 
+                }                    
+                                                                
+            }
+        });  
+
+    });
         
     </script>
     
