@@ -297,7 +297,9 @@
             let harga_po_usd = 0;
             let harga_po_rp = 0;
             let total_harga_rp = 0;
-            let total_harga_usd = 0;            
+            let total_harga_usd = 0;  
+            let kurs_oe = 0;
+            let kurs_po = 0;          
             jQuery('.satuan-txt').text(" / " +  satuan);
 
         jQuery('#satuan').change(function() {
@@ -344,6 +346,32 @@
             
         });
 
+        jQuery('#tgl_oe').change(function() {
+            let tgl_oe = jQuery(this).val();
+            harga_oe_usd = jQuery('#harga_oe_usd').val() == 0 ? 0 : jQuery('#harga_oe_usd').val();
+            jQuery('#harga_oe_usd').val(harga_oe_usd);
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_oe },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_oe = parseFloat(varObj.data.usd_to_rp); 
+                    harga_oe_rp = kurs_oe *harga_oe_usd;
+                    console.log(harga_oe_rp);
+                    if(!isNaN(harga_oe_rp)){
+                        jQuery('#harga_oe_rp').val(harga_oe_rp.toFixed(2));   
+                    }else{
+                        jQuery('#harga_oe_rp').val("0"); 
+                    }  
+                                    
+                                                                    
+                }
+            });  
+        });
+
         jQuery('#harga_oe_usd').keyup(function() {
 
             let tgl_oe = jQuery('#tgl_oe').val();
@@ -356,8 +384,8 @@
                 data: {"tanggal": tgl_oe },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);                 
-                    let hasil = kurs*harga_oe_usd;
+                    kurs_oe = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = kurs_oe*harga_oe_usd;
                     if(!isNaN(hasil)){
                         jQuery('#harga_oe_rp').val(hasil.toFixed(2));   
                     }else{
@@ -382,8 +410,8 @@
                 data: {"tanggal": tgl_oe },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);                
-                    let hasil = harga_oe_rp/kurs;
+                    kurs_oe = parseFloat(varObj.data.usd_to_rp);                
+                    let hasil = harga_oe_rp/kurs_oe;
                     if(!isNaN(hasil)){
                         jQuery('#harga_oe_usd').val(hasil.toFixed(2));   
                     }else{
@@ -411,8 +439,8 @@
                 data: {"tanggal": tgl_po },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);                    
-                    harga_po_rp = kurs*harga_po_usd;
+                    kurs_po = parseFloat(varObj.data.usd_to_rp);                    
+                    harga_po_rp = kurs_po*harga_po_usd;
                     if(!isNaN(harga_po_rp)){
                         jQuery('#harga_po_rp').val(harga_po_rp.toFixed(2));  
                         total_harga_usd = harga_po_usd*qty; 
@@ -441,8 +469,8 @@
                 data: {"tanggal": tgl_po },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    let kurs = parseFloat(varObj.data.usd_to_rp);                    
-                    harga_po_usd = harga_po_rp/kurs;
+                    kurs = parseFloat(varObj.data.usd_to_rp);                    
+                    harga_po_usd = harga_po_rp/kurs_po;
                     console.log(harga_po_usd);
                     if(!isNaN(harga_po_usd)){
                         jQuery('#harga_po_usd').val(harga_po_usd.toFixed(2));
