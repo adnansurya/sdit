@@ -44,7 +44,7 @@
                             
                         </div>
                         <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan">
+                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm">
                                 <option value=""></option>                                
                                 <?php 
                                     include('api/db_access.php');                                
@@ -64,7 +64,7 @@
                             <strong>Data Transaksi</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form id="transactionForm" action="" method="post" enctype="multipart/form-data" class="form-horizontal">                                
+                            <form id="transactionForm" action="form/transaction_add.php" method="post" enctype="multipart/form-data" class="form-horizontal">                                
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Nama Barang</label>
@@ -177,7 +177,7 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Status</label>
                                     </div>
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-9">
                                         <input type="text" id="text-input" name="status" class="form-control">                                        
                                     </div>
                                 </div> 
@@ -186,13 +186,13 @@
                                         <label for="textarea-input" class=" form-control-label">Catatan</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="catatan" id="textarea-input" rows="2" class="form-control"></textarea>
+                                        <textarea name="keterangan" id="textarea-input" rows="2" class="form-control"></textarea>
                                     </div>
                                 </div>  
                                 <div class="row form-group">
                                     <div class="col-md-9 offset-md-3">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        <button type="button" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
                                     </div>                                    
                                 </div>                                 
                             </form>
