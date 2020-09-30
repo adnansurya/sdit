@@ -222,7 +222,7 @@
                             <div class="col col-md-3">
                                 <label for="text-input" class="form-control-label">Nama Perusahaan</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <select name="kode_badan" id="" class="form-control">
                                     <option value="PT">PT</option>
                                     <option value="CV">CV</option>
@@ -231,7 +231,7 @@
                                 </select>
                                 <small class="form-text text-muted">Kode Badan</small>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <input type="text" id="text-input" name="nama_usaha" class="form-control">
                                 <small class="form-text text-muted">Nama</small>
                             </div>
