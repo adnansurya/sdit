@@ -425,6 +425,48 @@
 
 
 
+        jQuery('#tgl_po').change(function() {
+            let tgl_po = jQuery(this).val();
+            harga_po_usd = jQuery('#harga_po_usd').val() == 0 ? 0 : jQuery('#harga_po_usd').val();
+            qty = jQuery('#qty').val() == 0 ? 0 : jQuery('#qty').val();
+            jQuery('#harga_po_usd').val(harga_po_usd);
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_po },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_po = parseFloat(varObj.data.usd_to_rp); 
+                    harga_po_rp = kurs_po *harga_po_usd;
+                    
+                    if(!isNaN(harga_po_rp)){
+                        jQuery('#harga_po_rp').val(harga_po_rp.toFixed(2));   
+                    }else{
+                        jQuery('#harga_po_rp').val("0"); 
+                    }  
+
+                    total_harga_usd = harga_po_usd*qty;            
+                    if(!isNaN(total_harga_usd)){
+                        jQuery('#total_harga_usd').val(total_harga_usd.toFixed(2));
+                    }else{
+                        jQuery('#total_harga_usd').val("0");
+                    }
+                    total_harga_rp = harga_po_rp*qty;            
+                    if(!isNaN(total_harga_rp)){
+                        jQuery('#total_harga_rp').val(total_harga_rp.toFixed(2));
+                    }else{
+                        jQuery('#total_harga_rp').val("0");
+                    }
+                                    
+                                                                    
+                }
+            });  
+        });
+
+
+
 
         jQuery('#harga_po_usd').keyup(function() {
 
