@@ -70,8 +70,7 @@
                                         echo '<td>'.$row['total_harga_usd'].'</td>'; 
                                         echo '<td>'.$row['status'].'</td>'; 
                                         echo '<td>
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" 
-                                            data-id="'.$row['id_var'].'" data-kurs="'.$row['usd_to_rp'].'" data-hba="'.$row['hba'].'" data-tgl="'.$row['tanggal'].'"><i class="fa fa-edit"></i> Edit</button>
+                                            <a class="btn btn-info btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i> Edit</button>
                                             <a class="btn btn-danger btn-sm" href=form/variabel_delete.php?id='.$row['id_var'].'><i class="fa fa-trash"></i> Hapus</a>';
                                                                                                                                                      
                                         echo '</td></tr>';

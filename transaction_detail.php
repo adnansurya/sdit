@@ -1,10 +1,13 @@
-<?php include('partials/global.php'); ?>
+<?php include('partials/global.php');
+if(!isset($_GET['id'])){
+    header("location:transaction_list.php");   
+}else{ ?>
 <!doctype html>
 <html class="no-js" lang="en">
 
 <head>
     <?php include('partials/head.php'); ?>
-    <title><?php echo $webname; ?> - Transaksi Baru</title>
+    <title><?php echo $webname; ?> - Transaksi Detail</title>
     <link rel="stylesheet" href="vendors/chosen/chosen.min.css">   
     
 	
@@ -556,3 +559,4 @@
 </body>
 
 </html>
+<?php } ?>
