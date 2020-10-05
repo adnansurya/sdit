@@ -1,13 +1,17 @@
 <?php include('partials/global.php');
+include('api/db_access.php');
 if(!isset($_GET['id'])){
     header("location:transaction_list.php");   
-}else{ ?>
+}else{ 
+    $query_sql = mysqli_query($conn, "SELECT * FROM transaksi WHERE id_transaksi=".$_GET['id']." LIMIT 1");
+    $detail = mysqli_fetch_array($query_sql,MYSQLI_ASSOC);
+?>
 <!doctype html>
 <html class="no-js" lang="en">
 
 <head>
     <?php include('partials/head.php'); ?>
-    <title><?php echo $webname; ?> - Transaksi Detail</title>
+    <title><?php echo $webname; ?> - Detail Transaksi</title>
     <link rel="stylesheet" href="vendors/chosen/chosen.min.css">   
     
 	
@@ -29,7 +33,7 @@ if(!isset($_GET['id'])){
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Transaksi Baru</h1>
+                        <h1>Detail Transaksi</h1>
                     </div>
                 </div>
             </div>            
@@ -53,7 +57,13 @@ if(!isset($_GET['id'])){
                                     include('api/db_access.php');                                
                                     $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
                                     while ($row = mysqli_fetch_array($load)){
-                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
+                                        echo ' <option value="'.$row['id_perusahaan'].'"';
+                                        
+                                        if($detail['id_perusahaan'] == $row['id_perusahaan']){
+                                            echo ' selected ';
+                                        }
+                                        
+                                        echo '>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
                                     }
                                 ?>
                             </select>  
@@ -67,28 +77,29 @@ if(!isset($_GET['id'])){
                             <strong>Data Transaksi</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form id="transactionForm" action="form/transaction_add.php" method="post" enctype="multipart/form-data" class="form-horizontal">                                
+                            <form id="transactionForm" action="form/transaction_edit.php" method="post" enctype="multipart/form-data" class="form-horizontal">                                
+                                <input type="hidden" name="id_transaksi" value="<?php echo $detail['id_transaksi']; ?>">
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Nama Barang</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="nama_barang" class="form-control">                                        
+                                        <input type="text" id="text-input" name="nama_barang" class="form-control" value="<?php echo $detail['nama_barang']; ?>">                                        
                                     </div>
                                 </div> 
                                 <div class="row form-group">                                    
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-3">
-                                                <input type="text" id="qty" name="qty" class="form-control"> 
+                                                <input type="text" id="qty" name="qty" class="form-control" value="<?php echo $detail['qty']; ?>"> 
                                                 <small class="form-text text-muted">Quantity</small>                                                                           
                                             </div> 
                                             <div class="col col-md-3">
                                             <select name="satuan" id="satuan" class="form-control">
-                                                <option value="ton">ton</option>
-                                                <option value="kg">kg</option>
-                                                <option value="Liter">Liter</option>
-                                                <option value="m3">m3</option>
+                                                <option value="ton" <?php  if($detail['satuan'] == 'ton'){ echo ' selected '; } ?> >ton</option>
+                                                <option value="kg" <?php  if($detail['satuan'] == 'kg'){ echo ' selected '; } ?> >kg</option>
+                                                <option value="Liter" <?php  if($detail['satuan'] == 'Liter'){ echo ' selected '; } ?> >Liter</option>
+                                                <option value="m3" <?php  if($detail['satuan'] == 'm3'){ echo ' selected '; } ?> >m3</option>
                                             </select>
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 
@@ -100,11 +111,11 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class=" form-control-label">PR</label>
                                     </div>
                                     <div class="col col-md-6">
-                                        <input type="text" id="text-input" name="no_pr" class="form-control"> 
+                                        <input type="text" id="text-input" name="no_pr" class="form-control" value="<?php echo $detail['no_pr']; ?>"> 
                                         <small class="form-text text-muted">No. PR</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="date" id="text-input" name="tgl_pr" class="form-control">                                         
+                                        <input type="date" id="text-input" name="tgl_pr" class="form-control" value="<?php echo $detail['tanggal_pr']; ?>">                                         
                                         <small class="form-text text-muted">Tanggal PR</small>                                       
                                     </div>
                                 </div> 
@@ -113,7 +124,7 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class="form-control-label">OE <small>(Owner Estimate)</small></label>
                                     </div>                                    
                                     <div class="col col-md-3">
-                                        <input type="date" id="tgl_oe" name="tgl_oe" class="form-control"> 
+                                        <input type="date" id="tgl_oe" name="tgl_oe" class="form-control" value="<?php echo $detail['tanggal_owner_estimate']; ?>"> 
                                         <small class="form-text text-muted">Tanggal OE</small>                                       
                                     </div>                                    
                                 </div>    
@@ -121,11 +132,11 @@ if(!isset($_GET['id'])){
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_oe_usd" name="harga_oe_usd" class="form-control"> 
+                                                <input type="text" id="harga_oe_usd" name="harga_oe_usd" class="form-control" value="<?php echo $detail['owner_estimate_usd']; ?>"> 
                                                 <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_oe_rp"  name="harga_oe_rp" class="form-control"> 
+                                                <input type="text" id="harga_oe_rp"  name="harga_oe_rp" class="form-control" value="<?php echo $detail['owner_estimate_rp']; ?>"> 
                                                 <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -136,11 +147,11 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
                                     </div>
                                     <div class="col col-md-6">
-                                        <input type="text" id="text-input" name="no_po" class="form-control"> 
+                                        <input type="text" id="text-input" name="no_po" class="form-control" value="<?php echo $detail['no_po']; ?>"> 
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
                                     <div class="col col-md-3">
-                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control"> 
+                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control" value="<?php echo $detail['tanggal_po']; ?>"> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
                                 </div>    
@@ -148,11 +159,11 @@ if(!isset($_GET['id'])){
                                     <div class="col-md-9 offset-md-3">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_po_usd" name="harga_po_usd" class="form-control"> 
+                                                <input type="text" id="harga_po_usd" name="harga_po_usd" class="form-control" value="<?php echo $detail['harga_po_usd']; ?>"> 
                                                 <small class="form-text text-muted">Harga PO (USD)<small class="satuan-txt"></small></small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_po_rp" name="harga_po_rp" class="form-control"> 
+                                                <input type="text" id="harga_po_rp" name="harga_po_rp" class="form-control" value="<?php echo $detail['harga_po_rp']; ?>"> 
                                                 <small class="form-text text-muted">Harga PO (Rp.)<small class="satuan-txt"></small></small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -166,11 +177,11 @@ if(!isset($_GET['id'])){
                                     <div class="col col-md-9">
                                         <div class="row form-group">
                                             <div class="col col-md-6">
-                                                <input type="text" id="total_harga_usd" name="total_harga_usd" class="form-control"> 
+                                                <input type="text" id="total_harga_usd" name="total_harga_usd" class="form-control" value="<?php echo $detail['total_harga_usd']; ?>"> 
                                                 <small class="form-text">(USD)</small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
-                                                <input type="text" id="total_harga_rp" name="total_harga_rp" class="form-control"> 
+                                                <input type="text" id="total_harga_rp" name="total_harga_rp" class="form-control" value="<?php echo $detail['total_harga_rp']; ?>"> 
                                                 <small class="form-text">(Rp.)</small>                                                                             
                                             </div>                                    
                                         </div>                                          
@@ -181,7 +192,7 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class=" form-control-label">Status</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="status" class="form-control">                                        
+                                        <input type="text" id="text-input" name="status" class="form-control" value="<?php echo $detail['status']; ?>">                                        
                                     </div>
                                 </div> 
                                 <div class="row form-group">
@@ -189,7 +200,7 @@ if(!isset($_GET['id'])){
                                         <label for="textarea-input" class=" form-control-label">Catatan</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="keterangan" id="textarea-input" rows="2" class="form-control"></textarea>
+                                        <textarea name="keterangan" id="textarea-input" rows="2" class="form-control"><?php echo $detail['keterangan']; ?></textarea>
                                     </div>
                                 </div>  
                                 <div class="row form-group">
@@ -231,10 +242,10 @@ if(!isset($_GET['id'])){
                             </div>
                             <div class="col-md-3">
                                 <select name="kode_badan" id="" class="form-control">
-                                    <option value="PT">PT</option>
-                                    <option value="CV">CV</option>
-                                    <option value="Perorangan">Perorangan</option>
-                                    <option value="Pte Ltd">Pte Ltd</option>
+                                    <option value="PT" <?php  if($detail['kode_badan'] == 'PT'){ echo ' selected '; } ?> >PT</option>
+                                    <option value="CV" <?php  if($detail['kode_badan'] == 'CV'){ echo ' selected '; } ?> >CV</option>
+                                    <option value="Perorangan" <?php  if($detail['kode_badan'] == 'Perorangan'){ echo ' selected '; } ?> >Perorangan</option>
+                                    <option value="Pte Ltd" <?php  if($detail['kode_badan'] == 'Pte Ltd'){ echo ' selected '; } ?> >Pte Ltd</option>
                                 </select>
                                 <small class="form-text text-muted">Kode Badan</small>
                             </div>
@@ -294,13 +305,14 @@ if(!isset($_GET['id'])){
             });
 
             var satuan =  jQuery('#satuan').val();
-            let qty = 0;
-            let harga_oe_usd = 0;
-            let harga_oe_rp = 0;
-            let harga_po_usd = 0;
-            let harga_po_rp = 0;
-            let total_harga_rp = 0;
-            let total_harga_usd = 0;  
+            let qty = parseFloat(jQuery('#qty').val());
+            // console.log(qty);
+            let harga_oe_usd = parseFloat(jQuery('#harga_oe_usd').val());
+            let harga_oe_rp = parseFloat(jQuery('#harga_oe_rp').val());
+            let harga_po_usd = parseFloat(jQuery('#harga_po_usd').val());
+            let harga_po_rp = parseFloat(jQuery('#harga_po_rp').val());
+            let total_harga_rp = parseFloat(jQuery('#total_harga_rp').val());
+            let total_harga_usd = parseFloat(jQuery('#total_harga_usd').val());  
             let kurs_oe = 0;
             let kurs_po = 0;          
             jQuery('.satuan-txt').text(" / " +  satuan);
@@ -363,7 +375,7 @@ if(!isset($_GET['id'])){
                     let varObj = JSON.parse(data);
                     kurs_oe = parseFloat(varObj.data.usd_to_rp); 
                     harga_oe_rp = kurs_oe *harga_oe_usd;
-                    console.log(harga_oe_rp);
+                    // console.log(harga_oe_rp);
                     if(!isNaN(harga_oe_rp)){
                         jQuery('#harga_oe_rp').val(harga_oe_rp.toFixed(2));   
                     }else{
@@ -431,7 +443,11 @@ if(!isset($_GET['id'])){
         jQuery('#tgl_po').change(function() {
             let tgl_po = jQuery(this).val();
             harga_po_usd = jQuery('#harga_po_usd').val() == 0 ? 0 : jQuery('#harga_po_usd').val();
-            qty = jQuery('#qty').val() == 0 ? 0 : jQuery('#qty').val();
+            if(jQuery('#qty').val() == 0){
+                qty = 0;
+            }else{
+                qty = parseFloat(jQuery('#qty').val());
+            }            
             jQuery('#harga_po_usd').val(harga_po_usd);
 
             jQuery.ajax({
@@ -475,6 +491,11 @@ if(!isset($_GET['id'])){
 
             let tgl_po = jQuery('#tgl_po').val();
             harga_po_usd = parseFloat(jQuery(this).val());
+            if(jQuery('#qty').val() == 0){
+                qty = 0;
+            }else{
+                qty = parseFloat(jQuery('#qty').val());
+            }  
 
 
             jQuery.ajax({
@@ -486,6 +507,7 @@ if(!isset($_GET['id'])){
                     let varObj = JSON.parse(data);
                     kurs_po = parseFloat(varObj.data.usd_to_rp);                    
                     harga_po_rp = kurs_po*harga_po_usd;
+                    // console.log(harga_po_usd + " " + kurs_po +" "+ harga_po_rp + " " + qty);
                     if(!isNaN(harga_po_rp)){
                         jQuery('#harga_po_rp').val(harga_po_rp.toFixed(2));  
                         total_harga_usd = harga_po_usd*qty; 
@@ -505,6 +527,11 @@ if(!isset($_GET['id'])){
 
             let tgl_po = jQuery('#tgl_po').val();
             harga_po_rp = parseFloat(jQuery(this).val());
+            if(jQuery('#qty').val() == 0){
+                qty = 0;
+            }else{
+                qty = parseFloat(jQuery('#qty').val());
+            }  
 
 
             jQuery.ajax({
@@ -516,7 +543,7 @@ if(!isset($_GET['id'])){
                     let varObj = JSON.parse(data);
                     kurs = parseFloat(varObj.data.usd_to_rp);                    
                     harga_po_usd = harga_po_rp/kurs_po;
-                    console.log(harga_po_usd);
+                    // console.log(harga_po_usd);
                     if(!isNaN(harga_po_usd)){
                         jQuery('#harga_po_usd').val(harga_po_usd.toFixed(2));
                         total_harga_usd = harga_po_usd*qty; 
@@ -535,12 +562,14 @@ if(!isset($_GET['id'])){
 
         jQuery('#qty').keyup(function() {
             qty = parseFloat(jQuery(this).val());
+            harga_po_usd = parseFloat(jQuery('#harga_po_usd').val());
             total_harga_usd = harga_po_usd*qty;            
             if(!isNaN(total_harga_usd)){
                 jQuery('#total_harga_usd').val(total_harga_usd.toFixed(2));
             }else{
                 jQuery('#total_harga_usd').val("0");
             }
+            harga_po_rp = parseFloat(jQuery('#harga_po_rp').val());
             total_harga_rp = harga_po_rp*qty;            
             if(!isNaN(total_harga_rp)){
                 jQuery('#total_harga_rp').val(total_harga_rp.toFixed(2));
