@@ -190,8 +190,7 @@
                                     </div>
                                 </div>  
                                 <div class="row form-group">
-                                    <div class="col-md-9 offset-md-3">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <div class="col-md-9 offset-md-3">                                        
                                         <button type="submit" class="btn btn-success">Simpan</button>
                                     </div>                                    
                                 </div>                                 
