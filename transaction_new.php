@@ -44,7 +44,7 @@
                             
                         </div>
                         <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm">
+                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm" required>
                                 <option value=""></option>                                
                                 <?php 
                                     include('api/db_access.php');                                
