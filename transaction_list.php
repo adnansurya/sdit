@@ -58,13 +58,13 @@
                                 <tbody>
                                 <?php 
                                     include('api/db_access.php');                                
-                                        $load = mysqli_query($conn, "SELECT transaksi.id_transaksi, transaksi.status, transaksi.tanggal_pr, transaksi.nama_barang, transaksi.total_harga_usd, perusahaan.nama_perusahaan 
+                                        $load = mysqli_query($conn, "SELECT transaksi.id_transaksi, transaksi.status, transaksi.tanggal_pr, transaksi.nama_barang, transaksi.total_harga_usd, perusahaan.kode_badan , perusahaan.nama_perusahaan 
                                         FROM perusahaan, transaksi WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
                                     $nomor = 1;
                                     while ($row = mysqli_fetch_array($load)){
                                         echo '<tr>';
                                         echo '<td>'.$nomor.'</td>';
-                                        echo '<td>'.$row['nama_perusahaan'].'</td>';
+                                        echo '<td>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</td>';
                                         echo '<td>'.$row['nama_barang'].'</td>';
                                         echo '<td>'.$row['tanggal_pr'].'</td>';
                                         echo '<td>'.$row['total_harga_usd'].'</td>'; 
