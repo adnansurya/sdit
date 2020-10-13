@@ -8,6 +8,7 @@
     <title><?php echo $webname; ?> - Daftar Transaksi</title>
     <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="vendors/datatables-responsive/css/responsive.bootstrap4.css"/>
 
 </head>
 
@@ -41,44 +42,44 @@
                         <div class="card-header">
                             <strong>Daftar Transaksi</strong>                           
                         </div>
-                        <div class="card-body">  
-                            
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama Perusahaan</th>
-                                        <th>Nama Barang</th>
-                                        <th>Tanggal PR</th>
-                                        <th>Total Harga (USD)</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php 
-                                    include('api/db_access.php');                                
-                                        $load = mysqli_query($conn, "SELECT transaksi.id_transaksi, transaksi.status, transaksi.tanggal_pr, transaksi.nama_barang, transaksi.total_harga_usd, perusahaan.kode_badan , perusahaan.nama_perusahaan 
-                                        FROM perusahaan, transaksi WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
-                                    $nomor = 1;
-                                    while ($row = mysqli_fetch_array($load)){
-                                        echo '<tr>';
-                                        echo '<td>'.$nomor.'</td>';
-                                        echo '<td>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</td>';
-                                        echo '<td>'.$row['nama_barang'].'</td>';
-                                        echo '<td>'.$row['tanggal_pr'].'</td>';
-                                        echo '<td>'.$row['total_harga_usd'].'</td>'; 
-                                        echo '<td>'.$row['status'].'</td>'; 
-                                        echo '<td>
-                                            <a class="btn btn-info btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i> Edit</button>
-                                            <a class="btn btn-danger btn-sm" href=form/transaction_delete.php?id='.$row['id_transaksi'].'><i class="fa fa-trash"></i> Hapus</a>';
-                                                                                                                                                     
-                                        echo '</td></tr>';
-                                        $nomor++;
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>                                           
+                                            <th>Nama Barang</th>                                           
+                                            <th>No. PR</th>                                           
+                                            <th>No. PO</th>                                          
+                                            <th>Harga PO (Rp.)</th>
+                                            <th>Status</th>                                           
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php 
+                                        include('api/db_access.php');                                
+                                            $load = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*
+                                            FROM perusahaan, transaksi WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
+                                        $nomor = 1;
+                                        while ($row = mysqli_fetch_array($load)){
+                                            echo '<tr>';
+                                            echo '<td>'.$nomor.'</td>';                                           
+                                            echo '<td>'.$row['nama_barang'].'</td>';                                          
+                                            echo '<td>'.$row['no_pr'].'</td>';                                          
+                                            echo '<td>'.$row['no_po'].'</td>';
+                                            echo '<td>Rp.'.$row['harga_po_rp'].'</td>';                                                                                      
+                                            echo '<td>'.$row['status'].'</td>';                                             
+                                            echo '<td>
+                                                <a class="btn btn-info btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i> Edit</button>
+                                                <a class="btn btn-danger btn-sm" href=form/transaction_delete.php?id='.$row['id_transaksi'].'><i class="fa fa-trash"></i> Hapus</a>';                                                                                                                                                        
+                                            echo '</td></tr>';
+                                            $nomor++;
+                                        }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>                                                          
                         </div>
                     </div>
                 </div>                
@@ -138,8 +139,11 @@
     <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="vendors/datatables-responsive/js/dataTables.responsive.js"></script>
     <script>
-        jQuery('#datatable').DataTable();
+        jQuery('#datatable').DataTable({
+            "responsive" : true
+        });
 
         jQuery('#detailModal').on('show.bs.modal', function (event) {
             let item = jQuery(event.relatedTarget);
