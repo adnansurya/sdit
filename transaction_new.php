@@ -213,6 +213,15 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">PO Approve</label>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <input type="date" id="text-input" name="tgl_appr_po" class="form-control"> 
+                                        <small class="form-text">Tanggal Approval PO</small>                                        
+                                    </div>
+                                </div> 
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Status</label>
                                     </div>
                                     <div class="col-12 col-md-9">
