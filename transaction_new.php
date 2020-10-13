@@ -129,33 +129,29 @@
                                     </div>                                    
                                 </div>
                                 <div class="row form-group">
-                                <div class="col col-md-3">
+                                    <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">DUR</label>
+                                    </div>  
+                                    <div class="col col-md-6">
+                                        <input type="text" id="text-input" name="no_dur" class="form-control"> 
+                                        <small class="form-text text-muted">No. DUR</small>         
                                     </div>                                  
                                     <div class="col col-md-3">
                                         <input type="date" id="tgl_oe" name="tgl_dur" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal DUR</small>                                       
-                                    </div>                                    
+                                    </div> 
+                                                                      
                                 </div>    
                                 <div class="row form-group">                                    
-                                    <div class="col-md-9 offset-md-3">
-                                        <div class="row">
-                                            <div class="col col-md-6">
-                                                <input type="text" id="text-input" name="no_dur" class="form-control"> 
-                                                <small class="form-text text-muted">No. DUR</small>         
-                                            </div> 
-                                            <div class="col col-md-6">
-                                                <select name="metode_dur" id="sel-input" class="form-control">
-                                                    <option value="Penunjukan Langsung">Penunjukan Langsung</option>
-                                                    <option value="Pemilihan Langsung">Pemilihan Langsung</option>
-                                                    <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
-                                                    <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
-                                                    <option value="Pengadaan Langsung">Pengadaan Langsung</option>
-                                                    
-                                                </select>
-                                                <small class="form-text text-muted">Metode Pengadaan</small>                                                                              
-                                            </div> 
-                                        </div>                                                                         
+                                    <div class="col-md-5 offset-md-3">                                       
+                                        <select name="metode_dur" id="sel-input" class="form-control">
+                                            <option value="Penunjukan Langsung">Penunjukan Langsung</option>
+                                            <option value="Pemilihan Langsung">Pemilihan Langsung</option>
+                                            <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
+                                            <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
+                                            <option value="Pengadaan Langsung">Pengadaan Langsung</option>                                            
+                                        </select>
+                                        <small class="form-text text-muted">Metode Pengadaan</small>                                                                                                                                                                                                  
                                     </div>                                    
                                 </div>                                
                                 <div class="row form-group">
@@ -165,11 +161,11 @@
                                     <div class="col col-md-9">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                            <input type="text" id="text-input" name="harga_tawar_usd" class="form-control"> 
+                                            <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control"> 
                                             <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
                                         </div>
                                         <div class="col col-md-6">
-                                            <input type="text" id="text-input" name="harga_tawar_rp" class="form-control">                                         
+                                            <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control">                                         
                                             <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
                                         </div>
                                         </div> 
@@ -352,6 +348,8 @@
             let harga_oe_rp = 0;
             let harga_po_usd = 0;
             let harga_po_rp = 0;
+            let harga_tawar_usd = 0;
+            let harga_tawar_rp = 0;
             let total_harga_rp = 0;
             let total_harga_usd = 0;  
             let kurs_oe = 0;
@@ -404,7 +402,7 @@
 
         jQuery('#tgl_oe').change(function() {
             let tgl_oe = jQuery(this).val();
-            harga_oe_usd = jQuery('#harga_oe_usd').val() == 0 ? 0 : jQuery('#harga_oe_usd').val();
+            harga_oe_usd = jQuery('#harga_oe_usd').val() == 0 ? 0 : parseFloat(jQuery('#harga_oe_usd').val());
             jQuery('#harga_oe_usd').val(harga_oe_usd);
 
             jQuery.ajax({
@@ -478,6 +476,60 @@
             });  
 
         });
+
+
+
+        jQuery('#harga_tawar_usd').keyup(function() {
+
+            let tgl_po = jQuery('#tgl_po').val();
+            harga_tawar_usd = parseFloat(jQuery(this).val());
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_po },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_po = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = kurs_po*harga_tawar_usd;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_tawar_rp').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_rp').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
+
+        jQuery('#harga_tawar_rp').keyup(function() {
+
+            let tgl_po = jQuery('#tgl_po').val();
+            harga_tawar_rp = parseFloat(jQuery(this).val());
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_po },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_po = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = harga_tawar_rp/kurs_po;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_tawar_usd').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_usd').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
 
 
 
