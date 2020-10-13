@@ -81,12 +81,12 @@
                                                 <small class="form-text text-muted">Quantity</small>                                                                           
                                             </div> 
                                             <div class="col col-md-3">
-                                            <select name="satuan" id="satuan" class="form-control">
-                                                <option value="ton">ton</option>
-                                                <option value="kg">kg</option>
-                                                <option value="Liter">Liter</option>
-                                                <option value="m3">m3</option>
-                                            </select>
+                                                <select name="satuan" id="satuan" class="form-control">
+                                                    <option value="ton">ton</option>
+                                                    <option value="kg">kg</option>
+                                                    <option value="Liter">Liter</option>
+                                                    <option value="m3">m3</option>
+                                                </select>
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 
                                         </div>                                                                         
@@ -128,6 +128,44 @@
                                         </div>                                                                         
                                     </div>                                    
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">DUR</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input type="text" id="text-input" name="no_dur" class="form-control"> 
+                                        <small class="form-text text-muted">No. DUR</small>                                       
+                                    </div>
+                                    <div class="col col-md-5">
+                                        <select name="metode_dur" id="sel-input" class="form-control">
+                                            <option value="Penunjukan Langsung">Penunjukan Langsung</option>
+                                            <option value="Pemilihan Langsung">Pemilihan Langsung</option>
+                                            <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
+                                            <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
+                                            <option value="Pengadaan Langsung">Pengadaan Langsung</option>
+                                            
+                                        </select>
+                                        <small class="form-text text-muted">Satuan</small>                                             
+                                    </div>
+                                </div> 
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Tender</label>
+                                    </div>
+                                    <div class="col col-md-9">
+                                        <div class="row">
+                                            <div class="col col-md-6">
+                                            <input type="text" id="text-input" name="harga_tawar_usd" class="form-control"> 
+                                            <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
+                                        </div>
+                                        <div class="col col-md-6">
+                                            <input type="text" id="text-input" name="harga_tawar_rp" class="form-control">                                         
+                                            <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
+                                        </div>
+                                        </div> 
+                                    </div>
+                                    
+                                </div> 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
