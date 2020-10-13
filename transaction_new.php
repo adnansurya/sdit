@@ -129,25 +129,35 @@
                                     </div>                                    
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col col-md-3">
+                                <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">DUR</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input type="text" id="text-input" name="no_dur" class="form-control"> 
-                                        <small class="form-text text-muted">No. DUR</small>                                       
-                                    </div>
-                                    <div class="col col-md-5">
-                                        <select name="metode_dur" id="sel-input" class="form-control">
-                                            <option value="Penunjukan Langsung">Penunjukan Langsung</option>
-                                            <option value="Pemilihan Langsung">Pemilihan Langsung</option>
-                                            <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
-                                            <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
-                                            <option value="Pengadaan Langsung">Pengadaan Langsung</option>
-                                            
-                                        </select>
-                                        <small class="form-text text-muted">Satuan</small>                                             
-                                    </div>
-                                </div> 
+                                    </div>                                  
+                                    <div class="col col-md-3">
+                                        <input type="date" id="tgl_oe" name="tgl_dur" class="form-control"> 
+                                        <small class="form-text text-muted">Tanggal DUR</small>                                       
+                                    </div>                                    
+                                </div>    
+                                <div class="row form-group">                                    
+                                    <div class="col-md-9 offset-md-3">
+                                        <div class="row">
+                                            <div class="col col-md-6">
+                                                <input type="text" id="text-input" name="no_dur" class="form-control"> 
+                                                <small class="form-text text-muted">No. DUR</small>         
+                                            </div> 
+                                            <div class="col col-md-6">
+                                                <select name="metode_dur" id="sel-input" class="form-control">
+                                                    <option value="Penunjukan Langsung">Penunjukan Langsung</option>
+                                                    <option value="Pemilihan Langsung">Pemilihan Langsung</option>
+                                                    <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
+                                                    <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
+                                                    <option value="Pengadaan Langsung">Pengadaan Langsung</option>
+                                                    
+                                                </select>
+                                                <small class="form-text text-muted">Metode Pengadaan</small>                                                                              
+                                            </div> 
+                                        </div>                                                                         
+                                    </div>                                    
+                                </div>                                
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Tender</label>
