@@ -152,8 +152,15 @@
                                             <option value="Pengadaan Langsung">Pengadaan Langsung</option>                                            
                                         </select>
                                         <small class="form-text text-muted">Metode Pengadaan</small>                                                                                                                                                                                                  
-                                    </div>                                    
-                                </div>                                
+                                    </div> 
+                                                                      
+                                </div>    
+                                <div class="row form-group">
+                                    <div class="offset-md-3 col-md-9">
+                                        <input type="file" id="file_dur" name="file_dur" class="form-control"> 
+                                        <small class="form-text text-muted">File DUR</small>                                       
+                                    </div> 
+                                </div>                            
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Tender</label>
@@ -161,13 +168,13 @@
                                     <div class="col col-md-9">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                            <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control"> 
-                                            <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
-                                        </div>
-                                        <div class="col col-md-6">
-                                            <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control">                                         
-                                            <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
-                                        </div>
+                                                <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control"> 
+                                                <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
+                                            </div>
+                                            <div class="col col-md-6">
+                                                <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control">                                         
+                                                <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
+                                            </div>
                                         </div> 
                                     </div>
                                     
@@ -199,7 +206,12 @@
                                         </div>                                                                         
                                     </div>                                    
                                 </div>
-                                
+                                <div class="row form-group">
+                                    <div class="offset-md-3 col-md-9">
+                                        <input type="file" id="file_po" name="file_po" class="form-control"> 
+                                        <small class="form-text text-muted">File PO</small>                                       
+                                    </div> 
+                                </div> 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Total Harga</label>
