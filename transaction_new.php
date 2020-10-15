@@ -96,11 +96,11 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PR</label>
                                     </div>
-                                    <div class="col col-md-6">
+                                    <div class="col col-md-5">
                                         <input type="text" id="text-input" name="no_pr" class="form-control"> 
                                         <small class="form-text text-muted">No. PR</small>                                       
                                     </div>
-                                    <div class="col col-md-3">
+                                    <div class="col col-md-4">
                                         <input type="date" id="text-input" name="tgl_pr" class="form-control">                                         
                                         <small class="form-text text-muted">Tanggal PR</small>                                       
                                     </div>
@@ -132,11 +132,11 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">DUR</label>
                                     </div>  
-                                    <div class="col col-md-6">
+                                    <div class="col col-md-5">
                                         <input type="text" id="text-input" name="no_dur" class="form-control"> 
                                         <small class="form-text text-muted">No. DUR</small>         
                                     </div>                                  
-                                    <div class="col col-md-3">
+                                    <div class="col col-md-4">
                                         <input type="date" id="tgl_oe" name="tgl_dur" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal DUR</small>                                       
                                     </div> 
@@ -183,11 +183,11 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
                                     </div>
-                                    <div class="col col-md-6">
+                                    <div class="col col-md-5">
                                         <input type="text" id="text-input" name="no_po" class="form-control"> 
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
-                                    <div class="col col-md-3">
+                                    <div class="col col-md-4">
                                         <input type="date" id="tgl_po" name="tgl_po" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
@@ -233,7 +233,7 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO Approve</label>
                                     </div>
-                                    <div class="col-12 col-md-3">
+                                    <div class="col-12 col-md-4">
                                         <input type="date" id="text-input" name="tgl_appr_po" class="form-control"> 
                                         <small class="form-text">Tanggal Approval PO</small>                                        
                                     </div>
