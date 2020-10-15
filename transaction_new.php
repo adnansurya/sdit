@@ -109,7 +109,7 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class="form-control-label">OE <small>(Owner Estimate)</small></label>
                                     </div>                                    
-                                    <div class="col col-md-3">
+                                    <div class="col col-md-4">
                                         <input type="date" id="tgl_oe" name="tgl_oe" class="form-control"> 
                                         <small class="form-text text-muted">Tanggal OE</small>                                       
                                     </div>                                    
