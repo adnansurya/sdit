@@ -165,7 +165,13 @@
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Tender</label>
                                     </div>
-                                    <div class="col col-md-9">
+                                    <div class="col col-md-4">
+                                        <input type="date" id="tgl_tawar" name="tgl_tawar" class="form-control"> 
+                                        <small class="form-text text-muted">Tanggal Tender</small>                                       
+                                    </div>                                                                           
+                                </div> 
+                                <div class="row form-group">
+                                    <div class="offset-md-3 col col-md-9">
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control"> 
@@ -177,8 +183,7 @@
                                             </div>
                                         </div> 
                                     </div>
-                                    
-                                </div> 
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
@@ -365,7 +370,8 @@
             let total_harga_rp = 0;
             let total_harga_usd = 0;  
             let kurs_oe = 0;
-            let kurs_po = 0;          
+            let kurs_po = 0;  
+            let kurs_tawar = 0;        
             jQuery('.satuan-txt').text(" / " +  satuan);
 
         jQuery('#satuan').change(function() {
@@ -493,18 +499,18 @@
 
         jQuery('#harga_tawar_usd').keyup(function() {
 
-            let tgl_po = jQuery('#tgl_po').val();
+            let tgl_tawar = jQuery('#tgl_tawar').val();
             harga_tawar_usd = parseFloat(jQuery(this).val());
 
             jQuery.ajax({
 
                 type: "GET",
                 url: 'api/get_variabel.php',
-                data: {"tanggal": tgl_po },
+                data: {"tanggal": tgl_tawar },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    kurs_po = parseFloat(varObj.data.usd_to_rp);                 
-                    let hasil = kurs_po*harga_tawar_usd;
+                    kurs_tawar = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = kurs_tawar*harga_tawar_usd;
                     if(!isNaN(hasil)){
                         jQuery('#harga_tawar_rp').val(hasil.toFixed(2));   
                     }else{
@@ -519,17 +525,17 @@
 
         jQuery('#harga_tawar_rp').keyup(function() {
 
-            let tgl_po = jQuery('#tgl_po').val();
+            let tgl_tawar = jQuery('#tgl_po').val();
             harga_tawar_rp = parseFloat(jQuery(this).val());
 
             jQuery.ajax({
 
                 type: "GET",
                 url: 'api/get_variabel.php',
-                data: {"tanggal": tgl_po },
+                data: {"tanggal": tgl_tawar },
                 success: function(data){
                     let varObj = JSON.parse(data);
-                    kurs_po = parseFloat(varObj.data.usd_to_rp);                 
+                    kurs_tawar = parseFloat(varObj.data.usd_to_rp);                 
                     let hasil = harga_tawar_rp/kurs_po;
                     if(!isNaN(hasil)){
                         jQuery('#harga_tawar_usd').val(hasil.toFixed(2));   
@@ -542,16 +548,41 @@
 
         });
 
+        jQuery('#tgl_tawar').change(function() {
+            let tgl_tawar = jQuery(this).val();
+            harga_tawar_usd = jQuery('#harga_tawar_usd').val() == 0 ? 0 : jQuery('#harga_tawar_usd').val();
+            jQuery('#harga_tawar_usd').val(harga_tawar_usd);
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_tawar },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_tawar = parseFloat(varObj.data.usd_to_rp);                    
+                    harga_tawar_rp = kurs_tawar*harga_tawar_usd;                                        
+                   
+                    if(!isNaN(harga_tawar_rp)){
+                        jQuery('#harga_tawar_rp').val(harga_tawar_rp.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_rp').val("0"); 
+                    }                              
+                                                                    
+                }
+            });  
+        });
+
 
 
 
         jQuery('#tgl_po').change(function() {
             let tgl_po = jQuery(this).val();
             harga_po_usd = jQuery('#harga_po_usd').val() == 0 ? 0 : jQuery('#harga_po_usd').val();
-            harga_tawar_usd = jQuery('#harga_tawar_usd').val() == 0 ? 0 : jQuery('#harga_tawar_usd').val();
+          
             qty = jQuery('#qty').val() == 0 ? 0 : jQuery('#qty').val();
             jQuery('#harga_po_usd').val(harga_po_usd);
-            jQuery('#harga_tawar_usd').val(harga_tawar_usd);
+           
 
             jQuery.ajax({
             
