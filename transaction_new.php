@@ -143,7 +143,7 @@
                                                                       
                                 </div>    
                                 <div class="row form-group">                                    
-                                    <div class="col-md-5 offset-md-3">                                       
+                                    <div class="col-md-6 offset-md-3">                                       
                                         <select name="metode_dur" id="sel-input" class="form-control">
                                             <option value="Penunjukan Langsung">Penunjukan Langsung</option>
                                             <option value="Pemilihan Langsung">Pemilihan Langsung</option>
