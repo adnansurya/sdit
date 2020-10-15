@@ -40,7 +40,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Perusahaan Terdaftar</strong>                           
+                            <strong>Perusahaan Terdaftar</strong> 
+                            <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
+                                <i class="fa fa-plus"></i> Tambah Baru
+                            </button>                          
                         </div>
                         <div class="card-body">  
                             
@@ -94,6 +97,81 @@
 
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
+
+    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalLabel">Tambah Perusahaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="form/perusahaan_add.php" method="post" class="form-horizontal">    
+                    <div class="modal-body">                                                
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Kode Perusahaan</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="text-input" name="kode_usaha" class="form-control">                                                           
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class="form-control-label">Nama Perusahaan</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="kode_badan" id="" class="form-control">
+                                    <option value="PT">PT</option>
+                                    <option value="CV">CV</option>
+                                    <option value="Perorangan">Perorangan</option>
+                                    <option value="Pte Ltd">Pte Ltd</option>
+                                </select>
+                                <small class="form-text text-muted">Kode Badan</small>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="text-input" name="nama_usaha" class="form-control">
+                                <small class="form-text text-muted">Nama</small>
+                            </div>
+                        </div> 
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="textarea-input" class=" form-control-label">Alamat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea name="alamat" id="textarea-input" rows="2" class="form-control"></textarea>
+                            </div>
+                        </div> 
+                        <div class="row form-group">
+                            
+                            <div class="col-md-6 offset-md-3">                                
+                                <input type="text" id="text-input" name="provinsi" class="form-control">
+                                <small class="form-text text-muted">Provinsi</small>                                                              
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="text-input" name="negara" class="form-control">      
+                                <small class="form-text text-muted">Negara</small>                                                        
+                            </div>
+                        </div>  
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">No. Telp</label>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <input type="text" id="text-input" name="telp" class="form-control">                                                           
+                            </div>
+                        </div>                                       
+                    </div>
+               
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
