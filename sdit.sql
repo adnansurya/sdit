@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 15 Okt 2020 pada 03.54
+-- Generation Time: 15 Okt 2020 pada 17.45
 -- Versi Server: 10.1.44-MariaDB-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -58,6 +58,7 @@ CREATE TABLE `transaksi` (
   `tanggal_dur` text NOT NULL,
   `metode_dur` text NOT NULL,
   `file_dur` text NOT NULL,
+  `tanggal_tawar` text NOT NULL,
   `harga_tawar_usd` float NOT NULL,
   `harga_tawar_rp` float NOT NULL,
   `harga_po_rp` float NOT NULL,
