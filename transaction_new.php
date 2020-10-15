@@ -548,8 +548,10 @@
         jQuery('#tgl_po').change(function() {
             let tgl_po = jQuery(this).val();
             harga_po_usd = jQuery('#harga_po_usd').val() == 0 ? 0 : jQuery('#harga_po_usd').val();
+            harga_tawar_usd = jQuery('#harga_tawar_usd').val() == 0 ? 0 : jQuery('#harga_tawar_usd').val();
             qty = jQuery('#qty').val() == 0 ? 0 : jQuery('#qty').val();
             jQuery('#harga_po_usd').val(harga_po_usd);
+            jQuery('#harga_tawar_usd').val(harga_tawar_usd);
 
             jQuery.ajax({
             
@@ -560,11 +562,18 @@
                     let varObj = JSON.parse(data);
                     kurs_po = parseFloat(varObj.data.usd_to_rp); 
                     harga_po_rp = kurs_po *harga_po_usd;
+                    harga_tawar_rp = kurs_po*harga_tawar_usd;
                     
                     if(!isNaN(harga_po_rp)){
                         jQuery('#harga_po_rp').val(harga_po_rp.toFixed(2));   
                     }else{
                         jQuery('#harga_po_rp').val("0"); 
+                    }  
+
+                    if(!isNaN(harga_tawar_rp)){
+                        jQuery('#harga_tawar_rp').val(harga_tawar_rp.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_rp').val("0"); 
                     }  
 
                     total_harga_usd = harga_po_usd*qty;            
