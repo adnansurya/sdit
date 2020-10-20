@@ -20,7 +20,7 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
         $temp = explode(".", $file_name);
         if(isset($_POST['no_dur'])){
             $filename_dur= 'DUR-'.$_POST['no_dur']. '.' . end($temp);
-            if(move_uploaded_file($file_tmp_dur,"../files/".$filename_dur)){
+            if(!move_uploaded_file($file_tmp_dur,"../files/".$filename_dur)){
                 $errors[] = 'Gagal upload file DUR';
             }
         }else{
@@ -40,7 +40,7 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
         $temp = explode(".", $file_name);
         if(isset($_POST['no_po'])){
             $filename_po= 'PO-'.$_POST['no_po']. '.' . end($temp);
-            if(move_uploaded_file($file_tmp_po,"../files/".$filename_po)){
+            if(!move_uploaded_file($file_tmp_po,"../files/".$filename_po)){
                 $errors[] = 'Gagal upload file PO';
             }
         }else{
