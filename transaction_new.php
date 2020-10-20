@@ -148,7 +148,7 @@
                                             <option value="Penunjukan Langsung">Penunjukan Langsung</option>
                                             <option value="Pemilihan Langsung">Pemilihan Langsung</option>
                                             <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
-                                            <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
+                                            <option value="Pelalangan Terbuka">Pelelangan Terbuka</option>
                                             <option value="Pengadaan Langsung">Pengadaan Langsung</option>                                            
                                         </select>
                                         <small class="form-text text-muted">Metode Pengadaan</small>                                                                                                                                                                                                  

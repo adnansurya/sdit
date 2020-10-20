@@ -54,7 +54,7 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
     tanggal_pr, no_po, tanggal_po, 
     owner_estimate_rp, owner_estimate_usd, tanggal_owner_estimate, 
     no_dur, tanggal_dur, metode_dur, file_dur,
-    harga_tawar_usd, harga_tawar_rp,
+    tanggal_tawar, harga_tawar_usd, harga_tawar_rp,
     harga_po_rp, harga_po_usd, file_po, total_harga_rp, 
     total_harga_usd, tanggal_approve_po, qty, satuan, 
     status, keterangan, filter_day, filter_month, filter_year) 
@@ -62,7 +62,7 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
      '".$_POST['tgl_pr']."' , '".$_POST['no_po']."', '".$_POST['tgl_po']."', 
      '".$_POST['harga_oe_rp']."' , '".$_POST['harga_oe_usd']."', '".$_POST['tgl_oe']."', 
      '".$_POST['no_dur']."' ,'".$_POST['tgl_dur']."' ,'".$_POST['metode_dur']."' ,'".$filename_dur."' ,
-     '".$_POST['harga_tawar_usd']."' , '".$_POST['harga_tawar_rp']."',
+     '".$_POST['tgl_tawar']."' , '".$_POST['harga_tawar_usd']."' , '".$_POST['harga_tawar_rp']."',
      '".$_POST['harga_po_rp']."', '".$_POST['harga_po_usd']."','".$filename_po."' , '".$_POST['total_harga_rp']."', 
      '".$_POST['total_harga_usd']."','".$_POST['tgl_appr_po']."' , '".$_POST['qty']."', '".$_POST['satuan']."', 
      '".$_POST['status']."', '".$_POST['keterangan']."', '".$filter_day."', '".$filter_month."', '".$filter_year."')";
