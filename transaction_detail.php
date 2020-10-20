@@ -147,11 +147,11 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class=" form-control-label">DUR</label>
                                     </div>  
                                     <div class="col col-md-6">
-                                        <input type="text" id="text-input" name="no_dur" class="form-control"> 
+                                        <input type="text" id="text-input" name="no_dur" class="form-control" value="<?php echo $detail['no_dur']; ?>"> 
                                         <small class="form-text text-muted">No. DUR</small>         
                                     </div>                                  
                                     <div class="col col-md-3">
-                                        <input type="date" id="tgl_oe" name="tgl_dur" class="form-control"> 
+                                        <input type="date" id="tgl_oe" name="tgl_dur" class="form-control" value="<?php echo $detail['tanggal_dur']; ?>" > 
                                         <small class="form-text text-muted">Tanggal DUR</small>                                       
                                     </div> 
                                                                       
@@ -159,11 +159,11 @@ if(!isset($_GET['id'])){
                                 <div class="row form-group">                                    
                                     <div class="col-md-5 offset-md-3">                                       
                                         <select name="metode_dur" id="sel-input" class="form-control">
-                                            <option value="Penunjukan Langsung">Penunjukan Langsung</option>
-                                            <option value="Pemilihan Langsung">Pemilihan Langsung</option>
-                                            <option value="Pelelangan Terbatas">Pelelangan Terbatas</option>
-                                            <option value="Pelalangan Terbuka">Pelalangan Terbuka</option>
-                                            <option value="Pengadaan Langsung">Pengadaan Langsung</option>                                            
+                                            <option value="Penunjukan Langsung" <?php  if($detail['metode_dur'] == 'Penunjukan Langsung'){ echo ' selected '; } ?> >Penunjukan Langsung</option>
+                                            <option value="Pemilihan Langsung" <?php  if($detail['metode_dur'] == 'Pemilihan Langsung'){ echo ' selected '; } ?> >Pemilihan Langsung</option>
+                                            <option value="Pelelangan Terbatas" <?php  if($detail['metode_dur'] == 'Pelelangan Terbatas'){ echo ' selected '; } ?> >Pelelangan Terbatas</option>
+                                            <option value="Pelalangan Terbuka" <?php  if($detail['metode_dur'] == 'Pelelangan Terbuka'){ echo ' selected '; } ?> >Pelelangan Terbuka</option>
+                                            <option value="Pengadaan Langsung" <?php  if($detail['metode_dur'] == 'Pengadaan Langsung'){ echo ' selected '; } ?> >Pengadaan Langsung</option>                                            
                                         </select>
                                         <small class="form-text text-muted">Metode Pengadaan</small>                                                                                                                                                                                                  
                                     </div> 
@@ -179,20 +179,25 @@ if(!isset($_GET['id'])){
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Tender</label>
                                     </div>
-                                    <div class="col col-md-9">
+                                    <div class="col col-md-4">
+                                        <input type="date" id="tgl_tawar" name="tgl_tawar" class="form-control" value="<?php echo $detail['tanggal_tawar']; ?>" >  
+                                        <small class="form-text text-muted">Tanggal Tender</small>                                       
+                                    </div>                                                                           
+                                </div> 
+                                <div class="row form-group">
+                                    <div class="offset-md-3 col col-md-9">
                                         <div class="row">
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control"> 
+                                                <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control" value="<?php echo $detail['harga_tawar_usd']; ?>" > 
                                                 <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
                                             </div>
                                             <div class="col col-md-6">
-                                                <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control">                                         
+                                                <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control" value="<?php echo $detail['harga_tawar_rp']; ?>" > 
                                                 <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
                                             </div>
                                         </div> 
                                     </div>
-                                    
-                                </div> 
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">PO <small>(Purchase Order)</small></label>
@@ -248,7 +253,7 @@ if(!isset($_GET['id'])){
                                         <label for="text-input" class=" form-control-label">PO Approve</label>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <input type="date" id="text-input" name="tgl_appr_po" class="form-control"> 
+                                        <input type="date" id="text-input" name="tgl_appr_po" class="form-control" value="<?php echo $detail['tanggal_approve_po']; ?>" >  
                                         <small class="form-text">Tanggal Approval PO</small>                                        
                                     </div>
                                 </div> 
