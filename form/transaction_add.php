@@ -1,7 +1,7 @@
 <?php
 
 include('../api/db_access.php');
-if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POST['qty'])){
+if(isset($_POST['id_perusahaan']) && isset($_POST['id_kategori']) && isset($_POST['nama_barang']) && isset($_POST['qty'])){
     
     $filter_date = explode("-",$_POST['tgl_po']);
     $filter_year = $filter_date[0];

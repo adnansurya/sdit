@@ -35,26 +35,56 @@
         <div class="content mt-3">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Perusahaan</strong>
-                            <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
-                                <i class="fa fa-plus"></i> Baru
-                            </button>
-                            
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Perusahaan</strong>
+                                    <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
+                                        <i class="fa fa-plus"></i> Baru
+                                    </button>
+                                    
+                                </div>
+                                <div class="card-body">                                  
+                                    <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm" required>
+                                        <option value=""></option>                                
+                                        <?php 
+                                            include('api/db_access.php');                                
+                                            $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
+                                            while ($row = mysqli_fetch_array($load)){
+                                                echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
+                                            }
+                                        ?>
+                                    </select>  
+                                    <div id="data-usaha"></div>                            
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm" required>
-                                <option value=""></option>                                
-                                <?php 
-                                    include('api/db_access.php');                                
-                                    $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
-                                    while ($row = mysqli_fetch_array($load)){
-                                        echo ' <option value="'.$row['id_perusahaan'].'">'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
-                                    }
-                                ?>
-                            </select>  
-                            <div id="data-usaha"></div>                            
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Kategori</strong>
+                                    <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#katModal">
+                                        <i class="fa fa-plus"></i> Baru
+                                    </button>
+                                    
+                                </div>
+                                <div class="card-body">                                  
+                                    <select data-placeholder="Pilih Kategori" class="standardSelect" id="kategoriSel" name="id_kategori" form="transactionForm" required>
+                                        <option value=""></option>                                
+                                        <?php 
+                                            include('api/db_access.php');                                
+                                            $load = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori");                                    
+                                            while ($row = mysqli_fetch_array($load)){
+                                                echo ' <option value="'.$row['id_kategori'].'">'.$row['nama_kategori'].'</option>';                                        
+                                            }
+                                        ?>
+                                    </select>  
+                                    <div id="data-kategori"></div>                            
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -267,7 +297,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div>            
             </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
@@ -343,6 +373,45 @@
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </form>
+            </div>
+        </div>        
+    </div>
+
+    <div class="modal fade" id="katModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalLabel">Edit Kategori</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="form/kategori_add.php" method="post" class="form-horizontal">                                                                              
+                        <div class="row form-group">
+                            <div class="col col-md-4">
+                                <label for="text-input" class=" form-control-label">Nama</label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <input type="text" id="namaEdit" name="nama" class="form-control" required>                                                           
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-4">
+                                <label for="text-input" class=" form-control-label">Deskripsi</label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <textarea name="deskripsi" id="deskripsiEdit" rows="2" class="form-control"></textarea>                                                          
+                            </div>
+                        
+                        </div>                        
+                        <div class="row form-group">                                   
+                            <div class="col-12 col-md-8 offset-md-4">                                    
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                            </div>
+                        </div>                                 
+                    </form>     
+                </div>
             </div>
         </div>
     </div>
