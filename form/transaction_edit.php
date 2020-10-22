@@ -11,8 +11,8 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
 
     $last = mysqli_query($conn,"SELECT file_dur, file_po FROM transaksi WHERE id_transaksi=".$_POST['id_transaksi']);
     $filenames = mysqli_fetch_assoc($last);  
-    $filename_dur= $filenames['file_dur'];
-    $filename_po= $filenames['file_po'];
+    $filename_dur = '';
+    $filename_po = '';
 
     if(!empty($_FILES["file_dur"]['name'])){
         $file_tmp_dur =$_FILES['file_dur']['tmp_name'];
@@ -23,7 +23,11 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
         $temp = explode(".", $file_name);
         if(isset($_POST['no_dur'])){
            
-           
+            if($filenames['file_dur'] != ''){
+                $filename_dur= $filenames['file_dur'];
+            }else{
+                $filename_dur= 'DUR-'.$_POST['no_dur']. '.' . end($temp);
+            }
             if(!move_uploaded_file($file_tmp_dur,"../files/".$filename_dur)){
                 $errors[] = 'Gagal upload file DUR';
             }
@@ -43,7 +47,11 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
 
         $temp = explode(".", $file_name);
         if(isset($_POST['no_po'])){            
-            
+            if($filenames['file_po'] != ''){
+                $filename_po= $filenames['file_po'];
+            }else{
+                $filename_po= 'PO-'.$_POST['no_po']. '.' . end($temp);
+            }
             if(!move_uploaded_file($file_tmp_po,"../files/".$filename_po)){
                 $errors[] = 'Gagal upload file PO';
             }
@@ -65,18 +73,30 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
     harga_po_usd='".$_POST['harga_po_usd']."', total_harga_rp='".$_POST['total_harga_rp']."', 
     total_harga_usd='".$_POST['total_harga_usd']."',tanggal_approve_po = '".$_POST['tgl_appr_po']."', qty='".$_POST['qty']."', satuan='".$_POST['satuan']."', 
     status='".$_POST['status']."', keterangan='".$_POST['keterangan']."', 
-    filter_day='".$filter_day."', filter_month='".$filter_month."', filter_year='".$filter_year."' WHERE id_transaksi=".$_POST['id_transaksi'];
+    filter_day='".$filter_day."', filter_month='".$filter_month."', filter_year='".$filter_year."' ";
+
+    if(!empty($_FILES["file_dur"]['name'])){
+        $sql = $sql."file_dur='".$filename_dur."' ";
+    }
+
+    if(!empty($_FILES["file_po"]['name'])){
+        $sql = $sql."file_po='".$filename_po."' ";
+    }
+    
+    $sql = $sql."WHERE id_transaksi=".$_POST['id_transaksi'];
    
-    // $result = mysqli_query($conn, $sql);
-    echo $filename_dur;
-    echo $filename_po;
-    echo $sql;
-    // if(!($result)){
-    //     echo 'Error query perusahaan';
-    //     echo $sql;
-    // }else{
-    //     header('Location: ../transaction_detail.php?id='.$_POST['id_transaksi']); 
-    // }
+    $result = mysqli_query($conn, $sql);
+  
+    if(!($result)){
+        echo 'Error query perusahaan';
+        echo $sql;
+    }else{
+        header('Location: ../transaction_detail.php?id='.$_POST['id_transaksi']); 
+    }
+
+    // echo $filename_dur;
+    // echo $filename_po;
+    // echo $sql;
     
 }else{
     echo 'Data tidak lengkap';
