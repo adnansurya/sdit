@@ -51,12 +51,9 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kode Perusahaan</th>
-                                            <th>Kode Badan</th>
+                                            <th>Kode Perusahaan</th>                                            
                                             <th>Nama Perusahaan</th>
-                                            <th>Alamat</th>
-                                            <th>Provinsi</th>
-                                            <th>Negara</th>
+                                            <th>Alamat</th>                                           
                                             <th>No. Telp</th>
                                             <th>Action</th>
                                         </tr>
@@ -69,18 +66,15 @@
                                         while ($row = mysqli_fetch_array($load)){
                                             echo '<tr>';
                                             echo '<td>'.$nomor.'</td>';
-                                            echo '<td>'.$row['kode_perusahaan'].'</td>';
-                                            echo '<td>'.$row['kode_badan'].'</td>';
-                                            echo '<td>'.$row['nama_perusahaan'].'</td>'; 
-                                            echo '<td>'.$row['alamat'].'</td>'; 
-                                            echo '<td>'.$row['provinsi'].'</td>'; 
-                                            echo '<td>'.$row['negara'].'</td>'; 
+                                            echo '<td>'.$row['kode_perusahaan'].'</td>';                                            
+                                            echo '<td>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</td>'; 
+                                            echo '<td>'.$row['alamat'].' <br>(Provinsi : '.$row['provinsi'].')<br>(Negara : '.$row['negara'].')</td>';                                            
                                             echo '<td>'.$row['no_telp'].'</td>'; 
                                             echo '<td>
-                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal" 
+                                                <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal" 
                                                 data-id="'.$row['id_perusahaan'].'" data-kode="'.$row['kode_perusahaan'].'" data-badan="'.$row['kode_badan'].'" data-nama="'.$row['nama_perusahaan'].
-                                                '" data-alamat="'.$row['alamat'].'" data-provinsi="'.$row['provinsi'].'" data-negara="'.$row['negara'].'" data-telp="'.$row['no_telp'].'"><i class="fa fa-edit"></i> Edit</button>
-                                                <a class="btn btn-danger btn-sm" href=form/perusahaan_delete.php?id='.$row['id_perusahaan'].'><i class="fa fa-trash"></i> Hapus</a>';
+                                                '" data-alamat="'.$row['alamat'].'" data-provinsi="'.$row['provinsi'].'" data-negara="'.$row['negara'].'" data-telp="'.$row['no_telp'].'"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger btn-sm" href=form/perusahaan_delete.php?id='.$row['id_perusahaan'].'><i class="fa fa-trash"></i></a>';
                                                                                                                                                         
                                             echo '</td></tr>';
                                             $nomor++;
@@ -254,11 +248,10 @@
     <!-- Right Panel -->
     <?php include('partials/script.php'); ?>
     <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    
     <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
     <script type="text/javascript" src="vendors/datatables-responsive/js/dataTables.responsive.js"></script>
-    <!-- <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script> -->
     
     <script>
         jQuery('#datatable').DataTable({
