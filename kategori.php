@@ -64,8 +64,8 @@
                                         echo '<td>'.$row['deskripsi'].'</td>';                                        
                                         echo '<td>
                                             <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" 
-                                            data-id="'.$row['id_kategori'].'" data-nama="'.$row['nama_kategori'].'" data-deskripsi="'.$row['deskripsi'].'"><i class="fa fa-edit"></i> Edit</a>
-                                            <a class="btn btn-danger btn-sm" href=form/kategori_delete.php?id='.$row['id_var'].'><i class="fa fa-trash"></i> Hapus</a>';
+                                            data-id="'.$row['id_kategori'].'" data-nama="'.$row['nama_kategori'].'" data-deskripsi="'.$row['deskripsi'].'"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-sm" href=form/kategori_delete.php?id='.$row['id_var'].'><i class="fa fa-trash"></i></a>';
                                                                                                                                                      
                                         echo '</td></tr>';
                                         $nomor++;
@@ -131,7 +131,7 @@
                                 <label for="text-input" class=" form-control-label">Nama</label>
                             </div>
                             <div class="col-12 col-md-8">
-                                <input type="text" id="kursEdit" name="nama" class="form-control" required>                                                           
+                                <input type="text" id="namaEdit" name="nama" class="form-control" required>                                                           
                             </div>
                         </div>
                         <div class="row form-group">
@@ -139,7 +139,7 @@
                                 <label for="text-input" class=" form-control-label">Deskripsi</label>
                             </div>
                             <div class="col-12 col-md-8">
-                                <textarea name="deskripsi" id="textarea-input" rows="2" class="form-control"></textarea>                                                          
+                                <textarea name="deskripsi" id="deskripsiEdit" rows="2" class="form-control"></textarea>                                                          
                             </div>
                           
                         </div>                        
@@ -165,27 +165,24 @@
 
         jQuery('#detailModal').on('show.bs.modal', function (event) {
             let item = jQuery(event.relatedTarget);
-            let idVar = item.data('id');
-            let tanggal = item.data('tgl');
-            let kurs = item.data('kurs');
-            let hba = item.data('hba');
+            let idKat = item.data('id');
+            let nama = item.data('nama');
+            let deskripsi = item.data('deskripsi');            
 
             let modal = jQuery(this);
 
            
-            modal.find('#tanggalEdit').val(tanggal);
-            modal.find('#kursEdit').val(kurs);
-            modal.find('#hbaEdit').val(hba);
-            modal.find('#idEdit').val(idVar);
+            modal.find('#namaEdit').val(nama);
+            modal.find('#deskripsiEdit').text(deskripsi);            
+            modal.find('#idEdit').val(idKat);
 
 
         });
 
         jQuery("#detailModal").on("hidden.bs.modal", function () {
             let modal = jQuery(this);
-            modal.find('#tanggalEdit').val('');
-            modal.find('#kursEdit').val('');
-            modal.find('#hbaEdit').val('');
+            modal.find('#namaEdit').val('');
+            modal.find('#deskripsiEdit').text('');            
             modal.find('#idEdit').val('');
         });
     </script>
