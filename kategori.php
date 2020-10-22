@@ -55,7 +55,7 @@
                                 <tbody>
                                 <?php 
                                     include('api/db_access.php');                                
-                                    $load = mysqli_query($conn, "SELECT * FROM kaegori ORDER BY nama_kategori ASC");
+                                    $load = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
                                     $nomor = 1;
                                     while ($row = mysqli_fetch_array($load)){
                                         echo '<tr>';
@@ -63,9 +63,9 @@
                                         echo '<td>'.$row['nama_kategori'].'</td>';
                                         echo '<td>'.$row['deskripsi'].'</td>';                                        
                                         echo '<td>
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" 
-                                            data-id="'.$row['id_var'].'" data-kurs="'.$row['usd_to_rp'].'" data-hba="'.$row['hba'].'" data-tgl="'.$row['tanggal'].'"><i class="fa fa-edit"></i> Edit</button>
-                                            <a class="btn btn-danger btn-sm" href=form/variabel_delete.php?id='.$row['id_var'].'><i class="fa fa-trash"></i> Hapus</a>';
+                                            <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" 
+                                            data-id="'.$row['id_kategori'].'" data-nama="'.$row['nama_kategori'].'" data-deskripsi="'.$row['deskripsi'].'"><i class="fa fa-edit"></i> Edit</a>
+                                            <a class="btn btn-danger btn-sm" href=form/kategori_delete.php?id='.$row['id_var'].'><i class="fa fa-trash"></i> Hapus</a>';
                                                                                                                                                      
                                         echo '</td></tr>';
                                         $nomor++;
