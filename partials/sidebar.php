@@ -28,6 +28,9 @@
                 <li>
                     <a href="variabel.php"><i class="menu-icon fa fa-usd"></i>Variabel</a>
                 </li>
+                <li>
+                    <a href="kategori.php"><i class="menu-icon fa fa-tag"></i>Kategori</a>
+                </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>
                         Sample Pages
