@@ -1,7 +1,7 @@
 <?php
 
 include('../api/db_access.php');
-if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POST['qty']) && isset($_POST['id_transaksi'])){
+if(isset($_POST['id_perusahaan']) && isset($_POST['id_kategori']) && isset($_POST['nama_barang']) && isset($_POST['qty']) && isset($_POST['id_transaksi'])){
 
     $filter_date = explode("-",$_POST['tgl_po']);
     $filter_year = $filter_date[0];
@@ -62,7 +62,7 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['nama_barang']) && isset($_POS
     }
 
 
-    $sql = "UPDATE transaksi SET id_perusahaan='".$_POST['id_perusahaan']."',    
+    $sql = "UPDATE transaksi SET id_perusahaan='".$_POST['id_perusahaan']."', id_kategori='".$_POST['id_kategori']."',  
     nama_barang='".$_POST['nama_barang']."', no_pr='".$_POST['no_pr']."', 
     tanggal_pr='".$_POST['tgl_pr']."', no_po='".$_POST['no_po']."', tanggal_po='".$_POST['tgl_po']."', 
     owner_estimate_rp='".$_POST['harga_oe_rp']."', owner_estimate_usd='".$_POST['harga_oe_usd']."', 
