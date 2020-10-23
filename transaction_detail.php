@@ -42,39 +42,75 @@ if(!isset($_GET['id'])){
         <div class="content mt-3">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Perusahaan</strong>
-                            <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
-                                <i class="fa fa-plus"></i> Baru
-                            </button>
-                            
-                        </div>
-                        <div class="card-body">                                  
-                            <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm">
-                                <option value=""></option>                                
-                                <?php 
-                                    include('api/db_access.php');                                
-                                    $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
-                                    while ($row = mysqli_fetch_array($load)){
-                                        echo ' <option value="'.$row['id_perusahaan'].'"';
-                                        
-                                        if($detail['id_perusahaan'] == $row['id_perusahaan']){
-                                            echo ' selected ';
-                                        }
-                                        
-                                        echo '>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
-                                    }
-                                ?>
-                            </select>  
-                            <div id="data-usaha"></div>                            
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="menu-icon fa fa-building-o"></i> <strong>Perusahaan</strong>
+                                    <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
+                                        <i class="fa fa-plus"></i> Baru
+                                    </button>
+                                    
+                                </div>
+                                <div class="card-body">                                  
+                                    <select data-placeholder="Pilih Perusahaan" class="standardSelect" id="perusahaanSel" name="id_perusahaan" form="transactionForm">
+                                        <option value=""></option>                                
+                                        <?php 
+                                            include('api/db_access.php');                                
+                                            $load = mysqli_query($conn, "SELECT * FROM perusahaan ORDER BY nama_perusahaan");                                    
+                                            while ($row = mysqli_fetch_array($load)){
+                                                echo ' <option value="'.$row['id_perusahaan'].'"';
+                                                
+                                                if($detail['id_perusahaan'] == $row['id_perusahaan']){
+                                                    echo ' selected ';
+                                                }
+                                                
+                                                echo '>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</option>';                                        
+                                            }
+                                        ?>
+                                    </select>  
+                                    <div id="data-usaha"></div>                            
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="menu-icon fa fa-tag"></i> <strong>Kategori</strong>
+                                    <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#katModal">
+                                        <i class="fa fa-plus"></i> Baru
+                                    </button>
+                                    
+                                </div>
+                                <div class="card-body">                                  
+                                    <select data-placeholder="Pilih Kategori" class="standardSelect" id="kategoriSel" name="id_kategori" form="transactionForm" required>
+                                        <option value=""></option>                                
+                                        <?php 
+                                            include('api/db_access.php');                                
+                                            $load = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori");                                    
+                                            while ($row = mysqli_fetch_array($load)){
+                                                echo ' <option value="'.$row['id_kategori'].'"';
+                                                
+                                                if($detail['id_kategori'] == $row['id_kategori']){
+                                                    echo ' selected ';
+                                                }
+                                                
+                                                echo '>'.$row['nama_kategori'].'</option>';                                                                                               
+                                            }
+                                        ?>
+                                    </select>  
+                                    <div id="data-kategori"></div>                            
+                                </div>
+                            </div>       
+                        </div>
+                    </div>                    
                 </div>
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Data Transaksi</strong>
+                        <i class="menu-icon fa fa-file-text"></i> <strong>Data Transaksi</strong>
                         </div>
                         <div class="card-body card-block">
                             <form id="transactionForm" action="form/transaction_edit.php" method="post" enctype="multipart/form-data" class="form-horizontal">                                
@@ -421,6 +457,31 @@ if(!isset($_GET['id'])){
                             <small>Provinsi </small> `+usahaObj.data.provinsi+`<br>
                             <small>Negara </small> `+usahaObj.data.negara+`<br>
                             <small>No. Telp </small> `+usahaObj.data.no_telp+`</p>
+                        `);
+                    }                    
+                }
+            });
+
+        });
+
+        jQuery('#kategoriSel').change(function() {
+            jQuery('#data-kategori').empty();
+            jQuery('#data-kategori').removeClass('mt-4');
+
+            let idKategori = jQuery(this).val();
+            
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_kategori.php',
+                data: {"id": idKategori },
+                success: function(data){
+                    let kategoriObj = JSON.parse(data);
+                    if(kategoriObj.result != 'unknown'){
+                        jQuery('#data-kategori').addClass('mt-4');
+                        jQuery('#data-kategori').append(`                            
+                            <p> <small>`+kategoriObj.data.deskripsi+`</small> </p>
                         `);
                     }                    
                 }

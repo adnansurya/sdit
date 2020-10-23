@@ -39,7 +39,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Perusahaan</strong>
+                                    <i class="menu-icon fa fa-building-o"></i> <strong>Perusahaan</strong>
                                     <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#mediumModal">
                                         <i class="fa fa-plus"></i> Baru
                                     </button>
@@ -65,7 +65,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Kategori</strong>
+                                    <i class="menu-icon fa fa-tag"></i> <strong>Kategori</strong>
                                     <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#katModal">
                                         <i class="fa fa-plus"></i> Baru
                                     </button>
@@ -91,7 +91,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Data Transaksi</strong>
+                        <i class="menu-icon fa fa-file-text"></i> <strong>Data Transaksi</strong>
                         </div>
                         <div class="card-body card-block">
                             <form id="transactionForm" action="form/transaction_add.php" method="post" enctype="multipart/form-data" class="form-horizontal">                                
@@ -484,8 +484,33 @@
             });
 
         });
+
+        jQuery('#kategoriSel').change(function() {
+            jQuery('#data-kategori').empty();
+            jQuery('#data-kategori').removeClass('mt-4');
+
+            let idKategori = jQuery(this).val();
             
+
+            jQuery.ajax({
+            
+                type: "GET",
+                url: 'api/get_kategori.php',
+                data: {"id": idKategori },
+                success: function(data){
+                    let kategoriObj = JSON.parse(data);
+                    if(kategoriObj.result != 'unknown'){
+                        jQuery('#data-kategori').addClass('mt-4');
+                        jQuery('#data-kategori').append(`                            
+                            <p> <small>`+kategoriObj.data.deskripsi+`</small> </p>
+                        `);
+                    }                    
+                }
+            });
+
         });
+            
+    });
 
         jQuery('#tgl_oe').change(function() {
             let tgl_oe = jQuery(this).val();
