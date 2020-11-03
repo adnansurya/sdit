@@ -217,7 +217,7 @@ if(!isset($_GET['id'])){
                                     </div>
                                     <div class="col col-md-4">
                                         <input type="date" id="tgl_tawar" name="tgl_tawar" class="form-control" value="<?php echo $detail['tanggal_tawar']; ?>" >  
-                                        <small class="form-text text-muted">Tanggal Tender</small>                                       
+                                        <small class="form-text text-muted">Tanggal Penawaran</small>                                       
                                     </div>                                                                           
                                 </div> 
                                 <div class="row form-group">
@@ -708,6 +708,57 @@ if(!isset($_GET['id'])){
             }
                
         });
+
+        jQuery('#harga_tawar_usd').keyup(function() {
+
+            let tgl_tawar = jQuery('#tgl_tawar').val();
+            harga_tawar_usd = parseFloat(jQuery(this).val());
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_tawar },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_tawar = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = kurs_tawar*harga_tawar_usd;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_tawar_rp').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_rp').val("0"); 
+                    }                    
+                                                                    
+                }
+            });  
+
+        });
+
+
+        jQuery('#harga_tawar_rp').keyup(function() {
+
+            let tgl_tawar = jQuery('#tgl_tawar').val();
+            harga_tawar_rp = parseFloat(jQuery(this).val());
+
+            jQuery.ajax({
+
+                type: "GET",
+                url: 'api/get_variabel.php',
+                data: {"tanggal": tgl_tawar },
+                success: function(data){
+                    let varObj = JSON.parse(data);
+                    kurs_tawar = parseFloat(varObj.data.usd_to_rp);                 
+                    let hasil = harga_tawar_rp/kurs_tawar;
+                    if(!isNaN(hasil)){
+                        jQuery('#harga_tawar_usd').val(hasil.toFixed(2));   
+                    }else{
+                        jQuery('#harga_tawar_usd').val("0"); 
+                    }                    
+                                                                    
+                }
+        });  
+
+});
 
         
         
