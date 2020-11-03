@@ -85,7 +85,7 @@ if(!isset($_GET['id'])){
                                     
                                 </div>
                                 <div class="card-body">                                  
-                                    <select data-placeholder="Pilih Kategori" class="standardSelect" id="kategoriSel" name="id_kategori" form="transactionForm" required>
+                                    <select data-placeholder="Pilih Kategori" class="standardSelect" id="kategoriSel" name="id_kategori" form="transactionForm">
                                         <option value=""></option>                                
                                         <?php 
                                             include('api/db_access.php');                                
