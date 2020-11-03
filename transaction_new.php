@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="col col-md-4">
                                         <input type="date" id="tgl_tawar" name="tgl_tawar" class="form-control"> 
-                                        <small class="form-text text-muted">Tanggal Tender</small>                                       
+                                        <small class="form-text text-muted">Tanggal Penawaran</small>                                       
                                     </div>                                                                           
                                 </div> 
                                 <div class="row form-group">
