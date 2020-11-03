@@ -619,7 +619,7 @@
 
         jQuery('#harga_tawar_rp').keyup(function() {
 
-            let tgl_tawar = jQuery('#tgl_po').val();
+            let tgl_tawar = jQuery('#tgl_tawar').val();
             harga_tawar_rp = parseFloat(jQuery(this).val());
 
             jQuery.ajax({
@@ -630,7 +630,7 @@
                 success: function(data){
                     let varObj = JSON.parse(data);
                     kurs_tawar = parseFloat(varObj.data.usd_to_rp);                 
-                    let hasil = harga_tawar_rp/kurs_po;
+                    let hasil = harga_tawar_rp/kurs_tawar;
                     if(!isNaN(hasil)){
                         jQuery('#harga_tawar_usd').val(hasil.toFixed(2));   
                     }else{
