@@ -225,11 +225,11 @@ if(!isset($_GET['id'])){
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_tawar_usd" name="harga_tawar_usd" class="form-control" value="<?php echo $detail['harga_tawar_usd']; ?>" > 
-                                                <small class="form-text text-muted">Harga Penawaran (USD)</small>                                       
+                                                <small class="form-text text-muted">Harga Penawaran (USD)<small class="satuan-txt"></small></small>                                       
                                             </div>
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_tawar_rp" name="harga_tawar_rp" class="form-control" value="<?php echo $detail['harga_tawar_rp']; ?>" > 
-                                                <small class="form-text text-muted">Harga Penawaran (Rp.)</small>                                       
+                                                <small class="form-text text-muted">Harga Penawaran (Rp.)<small class="satuan-txt"></small></small>                                       
                                             </div>
                                         </div> 
                                     </div>
