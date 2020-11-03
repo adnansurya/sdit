@@ -71,7 +71,8 @@
                                             echo '<td>Rp.'.$row['harga_po_rp'].'</td>';                                                                                      
                                             echo '<td>'.$row['status'].'</td>';                                             
                                             echo '<td>
-                                                <a class="btn btn-info btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i></button>
+                                                <a class="btn btn-info btn-sm" href=transaction_view.php?id='.$row['id_transaksi'].'><i class="fa fa-search"></i></button>
+                                                <a class="btn btn-success btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i></button>
                                                 <a class="btn btn-danger btn-sm" href=form/transaction_delete.php?id='.$row['id_transaksi'].'><i class="fa fa-trash"></i></a>';                                                                                                                                                        
                                             echo '</td></tr>';
                                             $nomor++;
