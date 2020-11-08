@@ -4,7 +4,14 @@ include('api/db_access.php');
 if(!isset($_GET['id'])){
     header("location:transaction_list.php");   
 }else{ 
-    $query_sql = mysqli_query($conn, "SELECT * FROM transaksi WHERE id_transaksi=".$_GET['id']." LIMIT 1");
+    $query_sql = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*, kategori.* 
+    FROM transaksi, perusahaan, kategori 
+    WHERE 
+    transaksi.id_transaksi=".$_GET['id']." AND  
+    transaksi.id_perusahaan = perusahaan.id_perusahaan AND
+    (transaksi.id_kategori = kategori.id_kategori OR transaksi.id_kategori = 0)
+    GROUP BY transaksi.id_transaksi 
+    LIMIT 1");
     $detail = mysqli_fetch_array($query_sql,MYSQLI_ASSOC);
 ?>
 <!doctype html>
@@ -41,6 +48,106 @@ if(!isset($_GET['id'])){
         </div>
 
         <div class="content mt-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">                        
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small>Nama Perusahaan</small>
+                                        <h4><?php echo $detail['nama_perusahaan']; ?></h4> 
+                                        <br> 
+                                        <small>Status</small>
+                                        <h4><?php echo $detail['status']; ?></h4>
+                                        <br>  
+                                        <small>Catatan</small>
+                                        <h4><?php echo $detail['keterangan']; ?></h4>                                        
+                                    </div>
+                                    <div class="col-md-6 text-md-right">
+                                        <small>No. PR</small>
+                                        <h6><?php echo $detail['no_pr']; ?></h6>
+                                        <br>
+                                        <small>Tanggal PR</small>
+                                        <h6><?php echo $detail['tanggal_pr']; ?></h6>
+                                        <br>
+                                        <small>Metode</small>
+                                        <h6><?php echo $detail['metode_dur']; ?></h6>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <small>Nama Barang / Jasa</small>
+                                        <h4><?php echo $detail['nama_barang']; ?></h4>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small>No. DUR</small>
+                                        <h4><?php echo $detail['no_dur']; ?></h4>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small>Qty</small>
+                                        <h4><?php echo $detail['qty']; ?></h4>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small>Satuan</small>
+                                        <h4><?php echo $detail['satuan']; ?></h4>
+                                        <br>                                        
+                                    </div>                               
+                                </div>
+                                <hr>                                  
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <small>Harga OE / Satuan </small>
+                                    </div>
+                                    <div class="col-md-2">
+                                       <h4>Rp. <?php echo $detail['owner_estimate_rp'];?></h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small> Tanggal <?php echo $detail['tanggal_owner_estimate'];?></small>
+                                    </div>                                    
+                                </div>                                
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <small>Harga Penawaran / Satuan</small>
+                                    </div>
+                                    <div class="col-md-2">
+                                       <h4>Rp. <?php echo $detail['harga_tawar_rp']; ?></h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small> Tanggal <?php echo $detail['tanggal_tawar'];?></small>
+                                    </div>
+                                </div> 
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <small>Harga PO / Satuan </small>
+                                    </div>
+                                    <div class="col-md-2">
+                                       <h4>Rp. <?php echo $detail['harga_po_rp']; ?></h4>
+                                    </div>                                    
+                                    <div class="col-md-4">
+                                        <small>Tanggal <?php echo $detail['tanggal_po'];?> </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small>Efisiensi (PO-OE) </small>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <h4>Rp. <?php echo ($detail['harga_po_rp']-$detail['owner_estimate_rp'])*$detail['qty']; ?></h4>
+                                    </div>
+                                </div>                               
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             
 
