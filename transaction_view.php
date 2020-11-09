@@ -20,7 +20,7 @@ if(!isset($_GET['id'])){
 
 <head>
     <?php include('partials/head.php'); ?>
-    <title><?php echo $webname; ?> - Lihat Transaksi</title>
+    <title><?php echo $webname; ?> - Lihat Transaksi</title>   
 
 </head>
 
@@ -60,14 +60,14 @@ if(!isset($_GET['id'])){
             </div>          
         </div>
 
-        <div class="content mt-3">
+        <div class="content mt-3 printed">
             <div class="row">
                 <div class="col-12">
                     <div class="card">                        
                         <div class="card-body">
-                            <div class="container printed">
-                                <div class="row">
-                                    <div class="col-md-6">
+                            <div class="container border">
+                                <div class="row mt-4">
+                                    <div class="col col-md-6">
                                         <small>Nama Perusahaan</small>
                                         <h4><?php echo $detail['nama_perusahaan']; ?></h4> 
                                         <br> 
@@ -77,7 +77,7 @@ if(!isset($_GET['id'])){
                                         <small>Catatan</small>
                                         <h4><?php echo $detail['keterangan']; ?></h4>                                        
                                     </div>
-                                    <div class="col-md-6 text-md-right">
+                                    <div class="col col-md-6 text-md-right">
                                         <small>No. PR</small>
                                         <h6><?php echo $detail['no_pr']; ?></h6>
                                         <br>
@@ -92,22 +92,22 @@ if(!isset($_GET['id'])){
                                 <hr>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small>Nama Barang / Jasa</small>
                                         <h4><?php echo $detail['nama_barang']; ?></h4>
                                         <br>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small>No. DUR</small>
                                         <h4><?php echo $detail['no_dur']; ?></h4>
                                         <br>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small>Qty</small>
                                         <h4><?php echo $detail['qty']; ?></h4>
                                         <br>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small>Satuan</small>
                                         <h4><?php echo $detail['satuan']; ?></h4>
                                         <br>                                        
@@ -115,43 +115,43 @@ if(!isset($_GET['id'])){
                                 </div>
                                 <hr>                                  
                                 <div class="row mb-2">
-                                    <div class="col-md-6">
+                                    <div class="col col-md-6">
                                         <small>Harga OE / Satuan </small>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                        <h4>Rp. <?php echo $detail['owner_estimate_rp'];?></h4>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small> Tanggal <?php echo $detail['tanggal_owner_estimate'];?></small>
                                     </div>                                    
                                 </div>                                
                                 <div class="row mb-2">
-                                    <div class="col-md-6">
+                                    <div class="col col-md-6">
                                         <small>Harga Penawaran / Satuan</small>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                        <h4>Rp. <?php echo $detail['harga_tawar_rp']; ?></h4>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small> Tanggal <?php echo $detail['tanggal_tawar'];?></small>
                                     </div>
                                 </div> 
                                 <div class="row mb-2">
-                                    <div class="col-md-6">
+                                    <div class="col col-md-6">
                                         <small>Harga PO / Satuan </small>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                        <h4>Rp. <?php echo $detail['harga_po_rp']; ?></h4>
                                     </div>                                    
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <small>Tanggal <?php echo $detail['tanggal_po'];?> </small>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row mb-4">
+                                    <div class="col col-md-6">
                                         <small>Total Efisiensi (OE - PO) </small>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col col-md-6">
                                        <h4>Rp. <?php echo ($detail['owner_estimate_rp']-$detail['harga_po_rp'])*$detail['qty']; ?></h4>
                                     </div>
                                 </div>                               
@@ -177,7 +177,9 @@ if(!isset($_GET['id'])){
 
             function printLaporan(){
                 jQuery('.printed').printThis({
-                    base : 'sdit'
+                    printContainer: true,
+                    base : 'sdit',
+                    pageTitle: "No. PR : <?php  echo $detail['no_pr']; ?>"
                 });
             } 
         // });
