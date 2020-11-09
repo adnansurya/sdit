@@ -149,11 +149,11 @@
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_oe_usd" name="harga_oe_usd" class="form-control"> 
-                                                <small class="form-text text-muted">Harga OE (USD)</small>                                                                           
+                                                <small class="form-text text-muted">Harga OE (USD)<small class="satuan-txt"></small></small>                                                                           
                                             </div> 
                                             <div class="col col-md-6">
                                                 <input type="text" id="harga_oe_rp"  name="harga_oe_rp" class="form-control"> 
-                                                <small class="form-text text-muted">Harga OE (Rp.)</small>                                                                             
+                                                <small class="form-text text-muted">Harga OE (Rp.)<small class="satuan-txt"></small></small>                                                                             
                                             </div> 
                                         </div>                                                                         
                                     </div>                                    
