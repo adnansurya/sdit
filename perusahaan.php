@@ -53,7 +53,9 @@
                                             <th>No.</th>
                                             <th>Kode Perusahaan</th>                                            
                                             <th>Nama Perusahaan</th>
-                                            <th>Alamat</th>                                           
+                                            <th>Alamat</th> 
+                                            <th>Provinsi</th> 
+                                            <th>Negara</th>                                         
                                             <th>No. Telp</th>
                                             <th>Action</th>
                                         </tr>
@@ -68,7 +70,9 @@
                                             echo '<td>'.$nomor.'</td>';
                                             echo '<td>'.$row['kode_perusahaan'].'</td>';                                            
                                             echo '<td>'.$row['kode_badan'].' '.$row['nama_perusahaan'].'</td>'; 
-                                            echo '<td>'.$row['alamat'].' <br>(Provinsi : '.$row['provinsi'].')<br>(Negara : '.$row['negara'].')</td>';                                            
+                                            echo '<td>'.$row['alamat'].'</td>';                                            
+                                            echo '<td>'.$row['provinsi'].'</td>';
+                                            echo '<td>'.$row['negara'].'</td>';  
                                             echo '<td>'.$row['no_telp'].'</td>'; 
                                             echo '<td>
                                                 <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal" 
@@ -250,12 +254,22 @@
     <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
     <script type="text/javascript" src="vendors/datatables-responsive/js/dataTables.responsive.js"></script>
     
     <script>
         jQuery('#datatable').DataTable({
-            "responsive": true
+            "responsive": true,
+            dom: 'frtipB',
+            buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
 
         jQuery('#editModal').on('show.bs.modal', function (event) {
