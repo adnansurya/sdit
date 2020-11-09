@@ -76,11 +76,11 @@ if(isset($_POST['id_perusahaan']) && isset($_POST['id_kategori']) && isset($_POS
     filter_day='".$filter_day."', filter_month='".$filter_month."', filter_year='".$filter_year."' ";
 
     if(!empty($_FILES["file_dur"]['name'])){
-        $sql = $sql."file_dur='".$filename_dur."' ";
+        $sql = $sql.",file_dur='".$filename_dur."' ";
     }
 
     if(!empty($_FILES["file_po"]['name'])){
-        $sql = $sql."file_po='".$filename_po."' ";
+        $sql = $sql.",file_po='".$filename_po."' ";
     }
     
     $sql = $sql."WHERE id_transaksi=".$_POST['id_transaksi'];
