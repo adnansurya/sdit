@@ -105,10 +105,10 @@ if(!isset($_GET['id'])){
                                     <div class="col-md-6">
                                         <small>Harga OE / Satuan </small>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                        <h4>Rp. <?php echo $detail['owner_estimate_rp'];?></h4>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <small> Tanggal <?php echo $detail['tanggal_owner_estimate'];?></small>
                                     </div>                                    
                                 </div>                                
@@ -116,10 +116,10 @@ if(!isset($_GET['id'])){
                                     <div class="col-md-6">
                                         <small>Harga Penawaran / Satuan</small>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                        <h4>Rp. <?php echo $detail['harga_tawar_rp']; ?></h4>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <small> Tanggal <?php echo $detail['tanggal_tawar'];?></small>
                                     </div>
                                 </div> 
@@ -127,19 +127,19 @@ if(!isset($_GET['id'])){
                                     <div class="col-md-6">
                                         <small>Harga PO / Satuan </small>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                        <h4>Rp. <?php echo $detail['harga_po_rp']; ?></h4>
                                     </div>                                    
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <small>Tanggal <?php echo $detail['tanggal_po'];?> </small>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <small>Efisiensi (PO-OE) </small>
+                                        <small>Total Efisiensi (OE - PO) </small>
                                     </div>
                                     <div class="col-md-6">
-                                       <h4>Rp. <?php echo ($detail['harga_po_rp']-$detail['owner_estimate_rp'])*$detail['qty']; ?></h4>
+                                       <h4>Rp. <?php echo ($detail['owner_estimate_rp']-$detail['harga_po_rp'])*$detail['qty']; ?></h4>
                                     </div>
                                 </div>                               
                             </div>
