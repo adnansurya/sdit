@@ -85,7 +85,7 @@ if(!isset($_GET['id'])){
                                         <h6><?php echo $detail['no_pr']; ?></h6>
                                         <br>
                                         <small>Tanggal PR</small>
-                                        <h6><?php echo $detail['tanggal_pr']; ?></h6>
+                                        <h6><?php echo tglIndo($detail['tanggal_pr']); ?></h6>
                                         <br>
                                         <small>Metode</small>
                                         <h6><?php echo $detail['metode_dur']; ?></h6>
@@ -125,7 +125,7 @@ if(!isset($_GET['id'])){
                                        <h4>Rp. <?php echo priceFormat($detail['owner_estimate_rp']);?></h4>
                                     </div>
                                     <div class="col col-md-3">
-                                        <small> Tanggal <?php echo $detail['tanggal_owner_estimate'];?></small>
+                                        <small> Tanggal <?php echo tglIndo($detail['tanggal_owner_estimate']);?></small>
                                     </div>                                    
                                 </div>                                
                                 <div class="row mb-2">
@@ -136,7 +136,7 @@ if(!isset($_GET['id'])){
                                        <h4>Rp. <?php echo priceFormat($detail['harga_tawar_rp']); ?></h4>
                                     </div>
                                     <div class="col col-md-3">
-                                        <small> Tanggal <?php echo $detail['tanggal_tawar'];?></small>
+                                        <small> Tanggal <?php echo tglIndo($detail['tanggal_tawar']);?></small>
                                     </div>
                                 </div> 
                                 <div class="row mb-2">
@@ -147,7 +147,7 @@ if(!isset($_GET['id'])){
                                        <h4>Rp. <?php echo priceFormat($detail['harga_po_rp']); ?></h4>
                                     </div>                                    
                                     <div class="col col-md-3">
-                                        <small>Tanggal <?php echo $detail['tanggal_po'];?> </small>
+                                        <small>Tanggal <?php echo tglIndo($detail['tanggal_po']);?> </small>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
