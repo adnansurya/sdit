@@ -50,8 +50,11 @@ if(!isset($_GET['id'])){
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <!-- <li class="active">Dashboard</li> -->
+                            <?php if($detail['file_dur'] != ""){ ?>
                             <a href="files/<?php echo $detail['file_dur']; ?>"><button class="btn btn-secondary btn-sm mr-1" > <i class="fa fa-download"></i> <?php echo $detail['file_dur']; ?></button></a>
+                            <?php } if($detail['file_po'] != ""){ ?>
                             <a href="files/<?php echo $detail['file_po']; ?>"><button class="btn btn-secondary btn-sm mr-1" > <i class="fa fa-download"></i> <?php echo $detail['file_po']; ?></button></a>
+                            <?php } ?>
                             <button class="btn btn-primary btn-sm" onclick="printLaporan()"> <i class="fa fa-print"></i> Cetak</button>
                         </ol>
                         
