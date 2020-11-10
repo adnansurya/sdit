@@ -68,7 +68,7 @@
                                             echo '<td>'.$row['nama_barang'].'</td>';                                          
                                             echo '<td>'.$row['no_pr'].'</td>';                                          
                                             echo '<td>'.$row['no_po'].'</td>';
-                                            echo '<td>Rp.'.$row['harga_po_rp'].'</td>';                                                                                      
+                                            echo '<td>Rp.'.priceFormat($row['harga_po_rp']).'</td>';                                                                                      
                                             echo '<td>'.$row['status'].'</td>';                                             
                                             echo '<td>
                                                 <a class="btn btn-info btn-sm" href=transaction_view.php?id='.$row['id_transaksi'].'><i class="fa fa-search"></i></button>

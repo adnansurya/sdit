@@ -62,7 +62,7 @@
                                         echo '<tr>';
                                         echo '<td>'.$nomor.'</td>';
                                         echo '<td>'.$row['tanggal'].'</td>';
-                                        echo '<td>'.$row['usd_to_rp'].'</td>'; 
+                                        echo '<td>'.priceFormat($row['usd_to_rp']).'</td>'; 
                                         echo '<td>'.$row['hba'].'</td>'; 
                                         echo '<td>
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal" 
