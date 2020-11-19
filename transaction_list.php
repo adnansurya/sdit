@@ -47,29 +47,80 @@
                                 <table id="datatable" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>                                           
-                                            <th>Nama Barang</th>                                           
-                                            <th>No. PR</th>                                           
-                                            <th>No. PO</th>                                          
-                                            <th>Harga PO (Rp.)</th>
-                                            <th>Status</th>                                           
-                                            <th>Action</th>
+                                            <th class="all">No.</th> 
+                                            <th class="none">ID Perusahaan</th> 
+                                            <th class="none">Kode Perusahaan</th>                                         
+                                            <th class="none">Nama Perusahaan</th>                                           
+                                            <th class="none">Alamat</th>                                           
+                                            <th class="none">Provinsi</th>                                          
+                                            <th class="none">Negara</th>
+                                            <th class="none">No.Telp</th>
+                                            <th class="none">Kategori</th>                                           
+                                            <th class="all">Nama Barang</th>
+                                            <th class="all">No. PR</th>
+                                            <th class="none">Tanggal PR</th>
+                                            <th class="none">Tanggal OE</th>
+                                            <th class="none">Harga OE</th>
+                                            <th class="none">No. DUR</th>
+                                            <th class="none">Tanggal DUR</th>
+                                            <th class="none">Metode Pengadaaan</th>
+                                            <th class="none">File DUR</th>
+                                            <th class="none">Tanggal Penawaran</th>
+                                            <th class="none">Harga Penawaran</th>
+                                            <th class="all">No. PO</th>
+                                            <th class="none">Tanggal Po</th>
+                                            <th class="all">Harga PO</th>
+                                            <th class="none">File PO</th>
+                                            <th class="none">Kuantum</th>
+                                            <th class="none">Satuan</th>
+                                            <th class="none">Total Harga</th>
+                                            <th class="none">Tanggal Approve PO</th>
+                                            <th class="all">Status</th>
+                                            <th class="none">Catatan</th>     
+                                            <th class="all">Action</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
                                         include('api/db_access.php');                                
-                                            $load = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*
-                                            FROM perusahaan, transaksi WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
+                                            $load = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*, kategori.*
+                                            FROM perusahaan, transaksi, kategori 
+                                            WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan AND (transaksi.id_kategori = kategori.id_kategori OR transaksi.id_kategori = 0) 
+                                            GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
                                         $nomor = 1;
+
                                         while ($row = mysqli_fetch_array($load)){
                                             echo '<tr>';
-                                            echo '<td>'.$nomor.'</td>';                                           
+                                            echo '<td>'.$nomor.'</td>'; 
+                                            echo '<td>'.$row['kode_perusahaan'].'</td>';               
+                                            echo '<td>'.$row['kode_badan'].'</td>';   
+                                            echo '<td>'.$row['nama_perusahaan'].'</td>';   
+                                            echo '<td>'.$row['alamat'].'</td>';   
+                                            echo '<td>'.$row['provinsi'].'</td>';   
+                                            echo '<td>'.$row['negara'].'</td>';   
+                                            echo '<td>'.$row['no_telp'].'</td>'; 
+                                            echo '<td>'.$row['nama_kategori'].'</td>';     
                                             echo '<td>'.$row['nama_barang'].'</td>';                                          
-                                            echo '<td>'.$row['no_pr'].'</td>';                                          
+                                            echo '<td>'.$row['no_pr'].'</td>'; 
+                                            echo '<td>'.$row['tanggal_pr'].'</td>';       
+                                            echo '<td>'.$row['tanggal_owner_estimate'].'</td>'; 
+                                            echo '<td>'.priceFormat($row['owner_estimate_rp']).'</td>'; 
+                                            echo '<td>'.$row['no_dur'].'</td>'; 
+                                            echo '<td>'.$row['tanggal_dur'].'</td>'; 
+                                            echo '<td>'.$row['metode_dur'].'</td>'; 
+                                            echo '<td>'.$row['file_dur'].'</td>'; 
+                                            echo '<td>'.$row['tanggal_tawar'].'</td>'; 
+                                            echo '<td>'.priceFormat($row['harga_tawar_rp']).'</td>'; 
                                             echo '<td>'.$row['no_po'].'</td>';
-                                            echo '<td>Rp.'.priceFormat($row['harga_po_rp']).'</td>';                                                                                      
-                                            echo '<td>'.$row['status'].'</td>';                                             
+                                            echo '<td>'.$row['tanggal_po'].'</td>'; 
+                                            echo '<td>'.priceFormat($row['harga_po_rp']).'</td>'; 
+                                            echo '<td>'.$row['file_po'].'</td>'; 
+                                            echo '<td>'.$row['qty'].'</td>'; 
+                                            echo '<td>'.$row['satuan'].'</td>';
+                                            echo '<td>'.priceFormat($row['total_harga_rp']).'</td>'; 
+                                            echo '<td>'.$row['tanggal_approve_po'].'</td>';
+                                            echo '<td>'.$row['status'].'</td>'; 
+                                            echo '<td>'.$row['keterangan'].'</td>';                                                                                                                                                                                                                       
                                             echo '<td>
                                                 <a class="btn btn-info btn-sm" href=transaction_view.php?id='.$row['id_transaksi'].'><i class="fa fa-search"></i></button>
                                                 <a class="btn btn-success btn-sm" href=transaction_detail.php?id='.$row['id_transaksi'].'><i class="fa fa-edit"></i></button>
