@@ -28,8 +28,12 @@ function tglIndo($tanggal){
 	// variabel pecahkan 0 = tanggal
 	// variabel pecahkan 1 = bulan
 	// variabel pecahkan 2 = tahun
- 
-	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	if($tanggal != ''){
+		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	}else{
+		return 'Belum Tersedia';
+	}
+	
 }
 
 ?>
