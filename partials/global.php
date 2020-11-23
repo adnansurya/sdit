@@ -2,6 +2,18 @@
 
 $webname = 'SDIT';
 
+function ifUsd($benar, $salah){
+	if(isset($_GET['currency'])){ 
+		if($_GET['currency'] == 'usd'){ 
+			return $benar;  
+		}else{
+			return $salah;
+		}
+	}else{
+		return $salah;
+	}
+}
+
 function priceFormat($inputPrice){
 
     return number_format($inputPrice, 0, ".", ",");

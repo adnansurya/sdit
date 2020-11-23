@@ -40,7 +40,15 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Daftar Transaksi</strong>                           
+                            <strong>Daftar Transaksi</strong> 
+                            <div class="float-right">
+                                <small>Mata Uang </small>
+                                <label class="switch switch-text switch-primary switch-pill">
+                                <input id="currencySel" type="checkbox" class="switch-input" <?php echo ifUsd('checked="true"', '');?>> 
+                                    <span data-on="Usd" data-off="Rp" class="switch-label"></span> <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                                                     
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -60,20 +68,20 @@
                                             <th class="all">No. PR</th>
                                             <th class="none">Tanggal PR</th>
                                             <th class="none">Tanggal OE</th>
-                                            <th class="none">Harga OE</th>
+                                            <th class="none">Harga OE<?php echo ifUsd(' (USD)', ' (Rp)');?></th>
                                             <th class="none">No. DUR</th>
                                             <th class="none">Tanggal DUR</th>
                                             <th class="none">Metode Pengadaaan</th>
                                             <th class="none">File DUR</th>
                                             <th class="none">Tanggal Penawaran</th>
-                                            <th class="none">Harga Penawaran</th>
+                                            <th class="none">Harga Penawaran<?php echo ifUsd(' (USD)', ' (Rp)');?></th>
                                             <th class="all">No. PO</th>
                                             <th class="none">Tanggal Po</th>
-                                            <th class="all">Harga PO</th>
+                                            <th class="all">Harga PO<?php echo ifUsd(' (USD)', ' (Rp)');?></th>
                                             <th class="none">File PO</th>
                                             <th class="none">Kuantum</th>
                                             <th class="none">Satuan</th>
-                                            <th class="none">Total Harga</th>
+                                            <th class="none">Total Harga<?php echo ifUsd(' (USD)', ' (Rp)');?></th>
                                             <th class="none">Tanggal Approve PO</th>
                                             <th class="all">Status</th>
                                             <th class="none">Catatan</th>     
@@ -104,20 +112,20 @@
                                             echo '<td>'.$row['no_pr'].'</td>'; 
                                             echo '<td>'.$row['tanggal_pr'].'</td>';       
                                             echo '<td>'.$row['tanggal_owner_estimate'].'</td>'; 
-                                            echo '<td>'.priceFormat($row['owner_estimate_rp']).'</td>'; 
+                                            echo '<td>'.priceFormat(ifUsd($row['owner_estimate_usd'],$row['owner_estimate_rp'])).'</td>'; 
                                             echo '<td>'.$row['no_dur'].'</td>'; 
                                             echo '<td>'.$row['tanggal_dur'].'</td>'; 
                                             echo '<td>'.$row['metode_dur'].'</td>'; 
                                             echo '<td>'.$row['file_dur'].'</td>'; 
                                             echo '<td>'.$row['tanggal_tawar'].'</td>'; 
-                                            echo '<td>'.priceFormat($row['harga_tawar_rp']).'</td>'; 
+                                            echo '<td>'.priceFormat(ifUsd($row['harga_tawar_usd'],$row['harga_tawar_rp'])).'</td>'; 
                                             echo '<td>'.$row['no_po'].'</td>';
                                             echo '<td>'.$row['tanggal_po'].'</td>'; 
-                                            echo '<td>'.priceFormat($row['harga_po_rp']).'</td>'; 
+                                            echo '<td>'.priceFormat(ifUsd($row['harga_po_usd'],$row['harga_po_rp'])).'</td>'; 
                                             echo '<td>'.$row['file_po'].'</td>'; 
                                             echo '<td>'.$row['qty'].'</td>'; 
                                             echo '<td>'.$row['satuan'].'</td>';
-                                            echo '<td>'.priceFormat($row['total_harga_rp']).'</td>'; 
+                                            echo '<td>'.priceFormat(ifUsd($row['total_harga_usd'],$row['total_harga_rp'])).'</td>'; 
                                             echo '<td>'.$row['tanggal_approve_po'].'</td>';
                                             echo '<td>'.$row['status'].'</td>'; 
                                             echo '<td>'.$row['keterangan'].'</td>';                                                                                                                                                                                                                       
@@ -199,6 +207,17 @@
     <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
     <script type="text/javascript" src="vendors/datatables-responsive/js/dataTables.responsive.js"></script>
     <script>
+
+        jQuery('#currencySel').click(function(){
+            
+            if(jQuery(this).prop("checked") == true){                
+                window.location.href = "transaction_list.php?currency=usd";                   
+            }
+            else if(jQuery(this).prop("checked") == false){
+                window.location.href = "transaction_list.php";                
+            }
+        });
+
         jQuery('#datatable').DataTable({
             "responsive" : true,
             dom: 'frtipB',
