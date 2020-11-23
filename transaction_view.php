@@ -48,14 +48,17 @@ if(!isset($_GET['id'])){
             <div class="col-sm-8">
                 <div class="page-header float-right">
                     <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <!-- <li class="active">Dashboard</li> -->
+                        <ol class="breadcrumb text-right">                                                                              
                             <?php if($detail['file_dur'] != ""){ ?>
                             <a href="files/<?php echo $detail['file_dur']; ?>"><button class="btn btn-secondary btn-sm mr-1" > <i class="fa fa-download"></i> <?php echo $detail['file_dur']; ?></button></a>
                             <?php } if($detail['file_po'] != ""){ ?>
                             <a href="files/<?php echo $detail['file_po']; ?>"><button class="btn btn-secondary btn-sm mr-1" > <i class="fa fa-download"></i> <?php echo $detail['file_po']; ?></button></a>
                             <?php } ?>
-                            <button class="btn btn-primary btn-sm" onclick="printLaporan()"> <i class="fa fa-print"></i> Cetak</button>
+                            <button class="btn btn-primary btn-sm" onclick="printLaporan()"> <i class="fa fa-print"></i> Cetak</button>                            
+                            <label class="ml-2 switch switch-text switch-primary switch-pill">
+                                <input id="currencySel" type="checkbox" class="switch-input" <?php echo ifUsd('checked="true"', '');?>> 
+                                    <span data-on="Usd" data-off="Rp" class="switch-label"></span> <span class="switch-handle"></span>
+                            </label>      
                         </ol>
                         
                     </div>                    
@@ -122,7 +125,7 @@ if(!isset($_GET['id'])){
                                         <small>Harga OE / Satuan </small>
                                     </div>
                                     <div class="col col-md-3">
-                                       <h4>Rp. <?php echo priceFormat($detail['owner_estimate_rp']);?></h4>
+                                       <h4><?php echo ifUsd('$ ', 'Rp. ').' '.priceFormat(ifUsd($detail['owner_estimate_usd'],$detail['owner_estimate_rp']));?></h4>
                                     </div>
                                     <div class="col col-md-3">
                                         <small> <?php echo tglIndo($detail['tanggal_owner_estimate']);?></small>
@@ -133,7 +136,7 @@ if(!isset($_GET['id'])){
                                         <small>Harga Penawaran / Satuan</small>
                                     </div>
                                     <div class="col col-md-3">
-                                       <h4>Rp. <?php echo priceFormat($detail['harga_tawar_rp']); ?></h4>
+                                       <h4><?php echo ifUsd('$ ', 'Rp. ').' '.priceFormat(ifUsd($detail['harga_tawar_usd'],$detail['harga_tawar_rp']));?></h4>
                                     </div>
                                     <div class="col col-md-3">
                                         <small><?php echo tglIndo($detail['tanggal_tawar']);?></small>
@@ -144,7 +147,7 @@ if(!isset($_GET['id'])){
                                         <small>Harga PO / Satuan </small>
                                     </div>
                                     <div class="col col-md-3">
-                                       <h4>Rp. <?php echo priceFormat($detail['harga_po_rp']); ?></h4>
+                                       <h4><?php echo ifUsd('$ ', 'Rp. ').' '.priceFormat(ifUsd($detail['harga_po_usd'],$detail['harga_po_rp']));?></h4>
                                     </div>                                    
                                     <div class="col col-md-3">
                                         <small><?php echo tglIndo($detail['tanggal_po']);?> </small>
@@ -155,7 +158,7 @@ if(!isset($_GET['id'])){
                                         <small>Total Efisiensi (OE - PO) </small>
                                     </div>
                                     <div class="col col-md-6">
-                                       <h4>Rp. <?php echo priceFormat(($detail['owner_estimate_rp']-$detail['harga_po_rp'])*$detail['qty']); ?></h4>
+                                        <h4><?php echo ifUsd('$ ', 'Rp. ').' '.priceFormat(ifUsd(($detail['owner_estimate_usd']-$detail['harga_po_usd'])*$detail['qty'],($detail['owner_estimate_rp']-$detail['harga_po_rp'])*$detail['qty']));?></h4>                                       
                                     </div>
                                 </div>                               
                             </div>
@@ -175,7 +178,15 @@ if(!isset($_GET['id'])){
     <?php include('partials/script.php'); ?>
     <script type="text/javascript" src="vendors/printThis/printThis.js"></script>
     <script>
-
+         jQuery('#currencySel').click(function(){
+            
+            if(jQuery(this).prop("checked") == true){                
+                window.location.href = "transaction_view.php?id=<?php echo $_GET['id']; ?>&currency=usd";                   
+            }
+            else if(jQuery(this).prop("checked") == false){
+                window.location.href = "transaction_view.php?id=<?php echo $_GET['id']; ?>";                
+            }
+        });
         // $(document).ready(function() {
 
             function printLaporan(){
