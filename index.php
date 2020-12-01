@@ -134,17 +134,27 @@ if(isset($_GET['tahun'])){
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3">Kurs 1 USD to Rp </h4>
+                        <div class="card-header">
+                            <h4>Kurs 1 USD to Rp </h4>
+                        </div>
+                        <div class="card-body">                           
                             <canvas id="kurs-chart"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
                         </div>
                     </div>
                 </div>            
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3">HBA </h4>
+                    <div class="card"> 
+                        <div class="card-header">
+                            <h4>HBA</h4>
+                        </div>
+                        <div class="card-body">                           
                             <canvas id="hba-chart"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
                         </div>
                     </div>
                 </div>
@@ -152,18 +162,28 @@ if(isset($_GET['tahun'])){
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3">Pembelian Berdasarkan Kategori </h4>
-                            <canvas id="pieChart"></canvas>
+                        <div class="card-header">
+                            <h4>Pembelian Berdasarkan Kategori</h4>
+                        </div>
+                        <div class="card-body">                         
+                            <canvas id="pieChart"></canvas>                            
+                        </div>
+                        <div class="card-footer">
+                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
                         </div>
                     </div>
                 </div>            
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3">Persentase Pembelian Dalam / Luar Negeri </h4>
-                            <canvas id="pieChart2"></canvas>
+                        <div class="card-header">
+                            <h4>Persentase Pembelian Dalam / Luar Negeri </h4>
                         </div>
+                        <div class="card-body">                            
+                            <canvas id="pieChart2"></canvas>
+                        </div> 
+                        <div class="card-footer">
+                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
+                        </div>                      
                     </div>
                 </div>
             </div>
