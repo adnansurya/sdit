@@ -14,7 +14,7 @@ if(isset($_GET['tahun'])){
 
 <head>
     <?php include('partials/head.php'); ?>
-    <title><?php echo $webname; ?> - Blank</title>
+    <title><?php echo $webname; ?> - Dashboard</title>
 
 </head>
 
@@ -39,7 +39,7 @@ if(isset($_GET['tahun'])){
                     </div>
                 </div>
             </div>
-            <div class="offset-sm-4 col-sm-4">
+            <div class="col-sm-8">
                 <div class="page-header mt-2 float-right">                   
                     <select name="tahunSel" id="tahunSel" class="form-control text-right">
                         <?php
@@ -73,7 +73,7 @@ if(isset($_GET['tahun'])){
 
         <div class="content mt-3">
             <div class="row">
-                <div class="col-lg-6 col-md-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-one">
@@ -87,7 +87,7 @@ if(isset($_GET['tahun'])){
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-one">
@@ -101,7 +101,7 @@ if(isset($_GET['tahun'])){
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-one">
@@ -115,7 +115,7 @@ if(isset($_GET['tahun'])){
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-one">
@@ -132,7 +132,7 @@ if(isset($_GET['tahun'])){
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">Kurs 1 USD to Rp </h4>
@@ -140,7 +140,7 @@ if(isset($_GET['tahun'])){
                         </div>
                     </div>
                 </div>            
-                <div class="col-sm-12 col-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">HBA </h4>
@@ -150,7 +150,7 @@ if(isset($_GET['tahun'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">Pembelian Berdasarkan Kategori </h4>
@@ -158,7 +158,7 @@ if(isset($_GET['tahun'])){
                         </div>
                     </div>
                 </div>            
-                <div class="col-sm-12 col-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">Persentase Pembelian Dalam / Luar Negeri </h4>
@@ -168,7 +168,7 @@ if(isset($_GET['tahun'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">Top 10 Perusahaan Transaksi Terbanyak </h4>
@@ -194,6 +194,8 @@ if(isset($_GET['tahun'])){
             $hbaArray[] = $row['hba'];
             $kursArray[] = $row['usd_to_rp'];
          }
+
+        
     ?>
     <script>    
 
@@ -201,7 +203,7 @@ if(isset($_GET['tahun'])){
     var labelTanggal =  <?php echo json_encode($tanggalArray); ?>;
     var labelHba =  <?php echo json_encode($hbaArray); ?>;
     var labelKurs =  <?php echo json_encode($kursArray); ?>;
-    console.log(labelTanggal);
+    
     ctx.height = 150;
     var myChart = new Chart( ctx, {
         type: 'line',
@@ -348,14 +350,30 @@ if(isset($_GET['tahun'])){
         }
     } );
 
-
+    <?php 
+        $load = mysqli_query($conn, "SELECT SUM(transaksi.total_harga_rp) AS total_transaksi,
+        CASE
+            WHEN transaksi.id_kategori=0 THEN 'Tidak Tersedia'
+            WHEN transaksi.id_kategori = kategori.id_kategori THEN kategori.nama_kategori
+        END AS nama_kategori
+        FROM transaksi, kategori
+        WHERE filter_year = ".$selected_tahun." GROUP BY transaksi.id_kategori");
+        $kategoriArray = array();
+        $totalKategoriArray = array();
+        while ($row = mysqli_fetch_array($load)){
+            $kategoriArray[] = $row['nama_kategori'];
+            $totalKategoriArray[] = $row['total_transaksi'];           
+        }
+    ?>
     var ctx = document.getElementById( "pieChart" );
-    ctx.height = 300;
+    var labelKategori =  <?php echo json_encode($kategoriArray); ?>;
+    var labelTransaksiKategori =  <?php echo json_encode($totalKategoriArray); ?>;
+    ctx.height = 200;
     var myChart = new Chart( ctx, {
         type: 'pie',
         data: {
             datasets: [ {
-                data: [ 10, 34, 70, 5 ],
+                data: labelTransaksiKategori,
                 backgroundColor: [
                                     "rgba( 80, 150,0,0.9)",
                                     "rgba( 80, 150,0,0.7)",
@@ -372,27 +390,38 @@ if(isset($_GET['tahun'])){
                                 ]
 
                             } ],
-            labels: [
-                            "PT A",
-                            "CV B",
-                            "Perorangan C",
-                            "PT D"
-
-                        ]
+            labels: labelKategori
         },
         options: {
             responsive: true
         }
     } );
 
-
+    <?php 
+        $load = mysqli_query($conn, "SELECT SUM(transaksi.total_harga_rp) AS total_transaksi,        
+        CASE        
+            WHEN  UPPER(perusahaan.negara) = 'INDONESIA' THEN 'Dalam Negeri'
+            ELSE 'Luar Negeri'
+        END AS jenis_transaksi
+        FROM transaksi, perusahaan
+        WHERE transaksi.id_perusahaan=perusahaan.id_perusahaan AND 
+        filter_year = ".$selected_tahun." GROUP BY jenis_transaksi");
+        $jenisArray = array();
+        $totalJenisArray = array();
+        while ($row = mysqli_fetch_array($load)){
+            $jenisArray[] = $row['jenis_transaksi'];
+            $totalJenisArray[] = $row['total_transaksi'];           
+        }
+    ?>
     var ctx = document.getElementById( "pieChart2" );
-    ctx.height = 300;
+    var labelJenis = <?php echo json_encode($jenisArray); ?>;
+    var labelTransaksiJenis = <?php echo json_encode($totalJenisArray); ?>;
+    ctx.height = 200;
     var myChart = new Chart( ctx, {
         type: 'pie',
         data: {
             datasets: [ {
-                data: [70, 30 ],
+                data: labelTransaksiJenis,
                 backgroundColor: [
                                     "rgba(0, 123, 255,0.9)",                                    
                                     "rgba(0, 123, 255,0.5)",                                    
@@ -405,10 +434,7 @@ if(isset($_GET['tahun'])){
                                 ]
 
                             } ],
-            labels: [
-                            "Dalam Negeri",
-                            "Luar Negeri",                            
-                        ]
+            labels: labelJenis
         },
         options: {
             responsive: true
