@@ -388,7 +388,7 @@ if(isset($_GET['tahun'])){
             WHEN transaksi.id_kategori = kategori.id_kategori THEN kategori.nama_kategori
         END AS nama_kategori
         FROM transaksi, kategori
-        WHERE filter_year = ".$selected_tahun." GROUP BY transaksi.id_kategori");
+        WHERE  transaksi.id_kategori = kategori.id_kategori AND filter_year = ".$selected_tahun." GROUP BY transaksi.id_kategori");
         $kategoriArray = array();
         $totalKategoriArray = array();
         while ($row = mysqli_fetch_array($load)){
@@ -398,6 +398,7 @@ if(isset($_GET['tahun'])){
     ?>
     var ctx = document.getElementById( "pieChart" );
     var labelKategori =  <?php echo json_encode($kategoriArray); ?>;
+    console.log(labelKategori);
     var labelTransaksiKategori =  <?php echo json_encode($totalKategoriArray); ?>;
     ctx.height = 200;
     var myChart = new Chart( ctx, {
