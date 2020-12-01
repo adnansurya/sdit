@@ -190,10 +190,15 @@ if(isset($_GET['tahun'])){
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-body">
-                            <h4 class="mb-3">Top 10 Perusahaan Transaksi Terbanyak </h4>
+                        <div class="card-header">
+                            <h4>Top 10 Perusahaan Transaksi Terbanyak  </h4>
+                        </div>
+                        <div class="card-body">                  
                             <canvas id="barChart"></canvas>
                         </div>
+                        <div class="card-footer">
+                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -468,29 +473,37 @@ if(isset($_GET['tahun'])){
     } );
 
     
-
+    <?php 
+        $load = mysqli_query($conn, "SELECT SUM(transaksi.total_harga_rp) AS total_transaksi,  
+        perusahaan.nama_perusahaan AS nama_usaha
+        FROM transaksi, perusahaan
+        WHERE transaksi.id_perusahaan=perusahaan.id_perusahaan AND 
+        filter_year = ".$selected_tahun." GROUP BY nama_usaha ORDER BY total_transaksi DESC LIMIT 10");
+        $topArray = array();
+        $totalTopArray = array();
+        while ($row = mysqli_fetch_array($load)){
+            $topArray[] = $row['nama_usaha'];
+            $totalTopArray[] = $row['total_transaksi'];           
+        }
+    ?>
     var ctx = document.getElementById( "barChart" );
     //    ctx.height = 200;
+    var labelTop = <?php echo json_encode($topArray); ?>;
+    var labelTransaksiTop = <?php echo json_encode($totalTopArray); ?>;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
-            labels: [ "January", "February", "March", "April", "May", "June", "July" ],
+            labels: labelTop,
             datasets: [
+             
                 {
-                    label: "My First dataset",
-                    data: [ 65, 59, 80, 81, 56, 55, 40 ],
-                    borderColor: "rgba(0, 123, 255, 0.9)",
+                    label: "Total Transaksi",
+                    data: labelTransaksiTop,
+                    borderColor:  "rgba(0, 123, 255,0.9)",   
                     borderWidth: "0",
-                    backgroundColor: "rgba(0, 123, 255, 0.5)"
-                            },
-                {
-                    label: "My Second dataset",
-                    data: [ 28, 48, 40, 19, 86, 27, 90 ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0,0,0,0.07)"
+                    backgroundColor:  "rgba(0, 123, 255,0.7)"   
                             }
-                        ]
+        ]
         },
         options: {
             scales: {
@@ -503,39 +516,7 @@ if(isset($_GET['tahun'])){
         }
     } );
 
-    var ctx = document.getElementById( "barChart" );
-    //    ctx.height = 200;
-    var myChart = new Chart( ctx, {
-        type: 'bar',
-        data: {
-            labels: [ "January", "February", "March", "April", "May", "June", "July" ],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    data: [ 65, 59, 80, 81, 56, 55, 40 ],
-                    borderColor: "rgba(0, 123, 255, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0, 123, 255, 0.5)"
-                            },
-                {
-                    label: "My Second dataset",
-                    data: [ 28, 48, 40, 19, 86, 27, 90 ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0,0,0,0.07)"
-                            }
-                        ]
-        },
-        options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
-            }
-        }
-    } );
+    
 
 
 
