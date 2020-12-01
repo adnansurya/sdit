@@ -219,6 +219,12 @@ if(isset($_GET['tahun'])){
     ?>
     <script>    
 
+        jQuery('#tahunSel').change(function(){
+            let pilih_tahun = jQuery(this).val();
+            window.location.href = "index.php?tahun="+pilih_tahun;   
+            // console.log(pilih_tahun);
+        });
+
     var ctx = document.getElementById( "kurs-chart" );
     var labelTanggal =  <?php echo json_encode($tanggalArray); ?>;
     var labelHba =  <?php echo json_encode($hbaArray); ?>;
