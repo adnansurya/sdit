@@ -91,7 +91,7 @@
                                     <tbody>
                                     <?php 
                                         include('api/db_access.php');                                
-                                            $load = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*, kategori.*
+                                            $load = mysqli_query($conn, "SELECT transaksi.*, perusahaan.*, kategori.nama_kategori
                                             FROM perusahaan, transaksi, kategori 
                                             WHERE perusahaan.id_perusahaan = transaksi.id_perusahaan AND (transaksi.id_kategori = kategori.id_kategori OR transaksi.id_kategori = 0) 
                                             GROUP BY transaksi.id_transaksi ORDER BY transaksi.tanggal_pr DESC");
@@ -107,7 +107,8 @@
                                             echo '<td>'.$row['provinsi'].'</td>';   
                                             echo '<td>'.$row['negara'].'</td>';   
                                             echo '<td>'.$row['no_telp'].'</td>'; 
-                                            echo '<td>'.$row['nama_kategori'].'</td>';     
+                                            if($row['id_kategori'] != 0){echo '<td>'.$row['nama_kategori'].'</td>';}
+                                            else{echo '<td> - </td>';}     
                                             echo '<td>'.$row['nama_barang'].'</td>';                                          
                                             echo '<td>'.$row['no_pr'].'</td>'; 
                                             echo '<td>'.$row['tanggal_pr'].'</td>';       
