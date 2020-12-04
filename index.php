@@ -139,10 +139,7 @@ if(isset($_GET['tahun'])){
                         </div>
                         <div class="card-body">                           
                             <canvas id="kurs-chart"></canvas>
-                        </div>
-                        <div class="card-footer">
-                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
-                        </div>
+                        </div>                        
                     </div>
                 </div>            
                 <div class="col-md-6">
@@ -152,10 +149,7 @@ if(isset($_GET['tahun'])){
                         </div>
                         <div class="card-body">                           
                             <canvas id="hba-chart"></canvas>
-                        </div>
-                        <div class="card-footer">
-                            <h6 class="text-right">Tahun <?php echo $selected_tahun;?></h6>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
