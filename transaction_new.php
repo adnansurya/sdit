@@ -116,6 +116,7 @@
                                                     <option value="kg">kg</option>
                                                     <option value="Liter">Liter</option>
                                                     <option value="m3">m3</option>
+                                                    <option value="Lainnya">Lainnya</option>
                                                 </select>
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 

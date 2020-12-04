@@ -136,6 +136,7 @@ if(!isset($_GET['id'])){
                                                 <option value="kg" <?php  if($detail['satuan'] == 'kg'){ echo ' selected '; } ?> >kg</option>
                                                 <option value="Liter" <?php  if($detail['satuan'] == 'Liter'){ echo ' selected '; } ?> >Liter</option>
                                                 <option value="m3" <?php  if($detail['satuan'] == 'm3'){ echo ' selected '; } ?> >m3</option>
+                                                <option value="Lainnya" <?php  if($detail['satuan'] == 'Lainnya'){ echo ' selected '; } ?> >Lainnya</option>
                                             </select>
                                                 <small class="form-text text-muted">Satuan</small>                                                                             
                                             </div> 
