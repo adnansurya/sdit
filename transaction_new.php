@@ -223,7 +223,7 @@
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
                                     <div class="col col-md-4">
-                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control"> 
+                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control" required> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
                                 </div>    

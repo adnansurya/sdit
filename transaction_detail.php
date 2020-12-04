@@ -243,7 +243,7 @@ if(!isset($_GET['id'])){
                                         <small class="form-text text-muted">No. PO</small>                                       
                                     </div>
                                     <div class="col col-md-4">
-                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control" value="<?php echo $detail['tanggal_po']; ?>"> 
+                                        <input type="date" id="tgl_po" name="tgl_po" class="form-control" value="<?php echo $detail['tanggal_po']; ?>"  required> 
                                         <small class="form-text text-muted">Tanggal PO</small>                                       
                                     </div>                                    
                                 </div>    
