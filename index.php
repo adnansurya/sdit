@@ -59,7 +59,7 @@ if(isset($_GET['tahun'])){
         </div>
 
         <?php
-        $row_var =  mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM variabel ORDER BY id_var DESC"));
+        $row_var =  mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM variabel ORDER BY tanggal DESC LIMIT 1"));
         $var_kurs = $row_var['usd_to_rp'];
         $var_hba = $row_var['hba'];
         $var_tgl = $row_var['tanggal']; 
