@@ -204,7 +204,7 @@ if(isset($_GET['tahun'])){
     <?php include('partials/script.php'); ?>
     <script src="vendors/chart.js/dist/Chart.bundle.min.js"></script>
     <?php 
-         $load = mysqli_query($conn, "SELECT * FROM variabel ORDER BY id_var DESC");
+         $load = mysqli_query($conn, "SELECT * FROM variabel ORDER BY tanggal DESC");
          $tanggalArray = array();
          $hbaArray = array();
          $kursArray = array();
@@ -228,6 +228,8 @@ if(isset($_GET['tahun'])){
     var labelTanggal =  <?php echo json_encode($tanggalArray); ?>;
     var labelHba =  <?php echo json_encode($hbaArray); ?>;
     var labelKurs =  <?php echo json_encode($kursArray); ?>;
+    console.log(labelHba);
+    console.log(labelTanggal);
     
     ctx.height = 150;
     var myChart = new Chart( ctx, {
@@ -274,6 +276,12 @@ if(isset($_GET['tahun'])){
             scales: {
                 xAxes: [ {
                     display: true,
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            month: 'MMM YYYY'
+                        }
+                    },
                     gridLines: {
                         display: false,
                         drawBorder: false
@@ -348,6 +356,12 @@ if(isset($_GET['tahun'])){
             scales: {
                 xAxes: [ {
                     display: true,
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            month: 'MMM YYYY'
+                        }
+                    },
                     gridLines: {
                         display: false,
                         drawBorder: false
