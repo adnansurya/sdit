@@ -204,7 +204,7 @@ if(isset($_GET['tahun'])){
     <?php include('partials/script.php'); ?>
     <script src="vendors/chart.js/dist/Chart.bundle.min.js"></script>
     <?php 
-         $load = mysqli_query($conn, "SELECT * FROM variabel ORDER BY tanggal DESC");
+         $load = mysqli_query($conn, "SELECT * FROM variabel WHERE YEAR(tanggal) = ".$selected_tahun." ORDER BY tanggal DESC ");
          $tanggalArray = array();
          $hbaArray = array();
          $kursArray = array();
