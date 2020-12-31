@@ -6,6 +6,8 @@ if(isset($_GET['tahun'])){
 }else{
     $selected_tahun  = $date->format("Y");    
 }
+$selected_tahun_kurs = $selected_tahun;
+$selected_tahun_hba = $selected_tahun;
 
 ?>
 <!doctype html>
@@ -135,7 +137,28 @@ if(isset($_GET['tahun'])){
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Kurs 1 USD to Rp </h4>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4>Kurs 1 USD to Rp </h4>
+                                </div>
+                                <div class="col-md-4">
+                                <select name="tahunSelKurs" id="tahunSelKurs" class="form-control-sm text-right">
+                                    <?php
+                                        $load = mysqli_query($conn, "SELECT YEAR(tanggal) as filter_year FROM variabel GROUP BY YEAR(tanggal) ORDER BY YEAR(tanggal) DESC");
+                                        while ($row = mysqli_fetch_array($load)){
+                                            echo '<option value="'.$row['filter_year'].'"';
+                                            if($selected_tahun == $row['filter_year']){
+                                                echo ' selected';
+                                            }
+                                            echo '>Tahun '.$row['filter_year'].'</option>';
+                                        }
+
+                                    ?>                                              
+                                </select>
+                                </div>
+                            </div>
+                            
+                               
                         </div>
                         <div class="card-body">                           
                             <canvas id="kurs-chart"></canvas>
@@ -145,7 +168,26 @@ if(isset($_GET['tahun'])){
                 <div class="col-md-6">
                     <div class="card"> 
                         <div class="card-header">
-                            <h4>HBA</h4>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4>HBA </h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="tahunSelHba" id="tahunSelHba" class="form-control-sm text-right">
+                                        <?php
+                                            $load = mysqli_query($conn, "SELECT YEAR(tanggal) as filter_year FROM variabel GROUP BY YEAR(tanggal) ORDER BY YEAR(tanggal) DESC");
+                                            while ($row = mysqli_fetch_array($load)){
+                                                echo '<option value="'.$row['filter_year'].'"';
+                                                if($selected_tahun == $row['filter_year']){
+                                                    echo ' selected';
+                                                }
+                                                echo '>Tahun '.$row['filter_year'].'</option>';
+                                            }
+
+                                        ?>                                              
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">                           
                             <canvas id="hba-chart"></canvas>
@@ -204,190 +246,332 @@ if(isset($_GET['tahun'])){
     <?php include('partials/script.php'); ?>
     <script src="vendors/chart.js/dist/Chart.bundle.min.js"></script>
     <?php 
-         $load = mysqli_query($conn, "SELECT * FROM variabel WHERE YEAR(tanggal) = ".$selected_tahun." ORDER BY tanggal DESC ");
+         $load = mysqli_query($conn, "SELECT * FROM variabel WHERE YEAR(tanggal) = ".$selected_tahun_kurs." ORDER BY tanggal DESC ");
          $tanggalArray = array();
-         $hbaArray = array();
+        //  $hbaArray = array();
          $kursArray = array();
          while ($row = mysqli_fetch_array($load)){
             $tanggalArray[] = $row['tanggal'];
-            $hbaArray[] = $row['hba'];
+            // $hbaArray[] = $row['hba'];
             $kursArray[] = $row['usd_to_rp'];
+         }
+
+
+         $load = mysqli_query($conn, "SELECT * FROM variabel WHERE YEAR(tanggal) = ".$selected_tahun_hba." ORDER BY tanggal DESC ");
+         $tanggalArray = array();
+         $hbaArray = array();
+        //  $kursArray = array();
+         while ($row = mysqli_fetch_array($load)){
+            $tanggalArray[] = $row['tanggal'];
+            $hbaArray[] = $row['hba'];
+            // $kursArray[] = $row['usd_to_rp'];
          }
 
         
     ?>
-    <script>    
+    <script>  
+let kursChart;
+let hbaChart;
 
-        jQuery('#tahunSel').change(function(){
-            let pilih_tahun = jQuery(this).val();
-            window.location.href = "index.php?tahun="+pilih_tahun;   
-            // console.log(pilih_tahun);
-        });
+function loadKursChart(tahun){
 
-    var ctx = document.getElementById( "kurs-chart" );
-    var labelTanggal =  <?php echo json_encode($tanggalArray); ?>;
-    var labelHba =  <?php echo json_encode($hbaArray); ?>;
-    var labelKurs =  <?php echo json_encode($kursArray); ?>;
-    console.log(labelHba);
-    console.log(labelTanggal);
+    jQuery.ajax({
+        
+        type: "GET",
+        url: 'api/get_years.php',
+        data: {"year": tahun },
+        success: function(data){
+            let dataObj = JSON.parse(data);
+            
+            let tanggal_Arr = dataObj.data.tgl_Arr;
+            let hba_Arr = dataObj.data.hba_Arr; 
+            let kurs_Arr = dataObj.data.kurs_Arr;
+
+            var ctxKurs = document.getElementById( "kurs-chart" );
+        
+
+            ctxKurs.height = 150;
+            kursChart = new Chart( ctxKurs, {
+                type: 'line',
+                data: {
+                    labels: tanggal_Arr,
+                    type: 'line',
+                    defaultFontFamily: 'Montserrat',
+                    datasets: [ {
+                        data: kurs_Arr,
+                        label: "Expense",
+                        backgroundColor: 'rgba(0,103,255,.15)',
+                        borderColor: 'rgba(0,103,255,0.5)',
+                        borderWidth: 3.5,
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        pointBorderColor: 'transparent',
+                        pointBackgroundColor: 'rgba(0,103,255,0.5)',
+                            }, ]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        titleFontSize: 12,
+                        titleFontColor: '#000',
+                        bodyFontColor: '#000',
+                        backgroundColor: '#fff',
+                        titleFontFamily: 'Montserrat',
+                        bodyFontFamily: 'Montserrat',
+                        cornerRadius: 3,
+                        intersect: false,
+                    },
+                    legend: {
+                        display: false,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            fontFamily: 'Montserrat',
+                        },
+
+
+                    },
+                    scales: {
+                        xAxes: [ {
+                            display: true,
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    month: 'MMM YYYY'
+                                }
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Month'
+                            }
+                                } ],
+                        yAxes: [ {
+                            display: true,
+                            gridLines: {
+                                display: true,
+                                drawBorder: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Value'
+                            }
+                                } ]
+                    },
+                    title: {
+                        display: false,
+                    }
+                }
+            } );
+        }     
+    });
+
+}
+
+function loadHbaChart(tahun){
+
+    jQuery.ajax({
+        
+        type: "GET",
+        url: 'api/get_years.php',
+        data: {"year": tahun },
+        success: function(data){
+            let dataObj = JSON.parse(data);
+            
+            let tanggal_Arr = dataObj.data.tgl_Arr;
+            let hba_Arr = dataObj.data.hba_Arr; 
+            let kurs_Arr = dataObj.data.kurs_Arr;
+
+            var ctxHba = document.getElementById( "hba-chart" );
+        
+
+            ctxHba.height = 150;
+            hbaChart = new Chart( ctxHba, {
+                type: 'line',
+                data: {
+                    labels: tanggal_Arr,
+                    type: 'line',
+                    defaultFontFamily: 'Montserrat',
+                    datasets: [ {
+                        data: hba_Arr,
+                        label: "Expense",
+                        backgroundColor: 'rgba(0,103,255,.15)',
+                        borderColor: 'rgba(0,103,255,0.5)',
+                        borderWidth: 3.5,
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        pointBorderColor: 'transparent',
+                        pointBackgroundColor: 'rgba(0,103,255,0.5)',
+                            }, ]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        titleFontSize: 12,
+                        titleFontColor: '#000',
+                        bodyFontColor: '#000',
+                        backgroundColor: '#fff',
+                        titleFontFamily: 'Montserrat',
+                        bodyFontFamily: 'Montserrat',
+                        cornerRadius: 3,
+                        intersect: false,
+                    },
+                    legend: {
+                        display: false,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            fontFamily: 'Montserrat',
+                        },
+
+
+                    },
+                    scales: {
+                        xAxes: [ {
+                            display: true,
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    month: 'MMM YYYY'
+                                }
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Month'
+                            }
+                                } ],
+                        yAxes: [ {
+                            display: true,
+                            gridLines: {
+                                display: true,
+                                drawBorder: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Value'
+                            }
+                                } ]
+                    },
+                    title: {
+                        display: false,
+                    }
+                }
+            } );
+        }     
+    });
+
+}
+    loadHbaChart(2020);
+    loadKursChart(2020);
+
+
+    jQuery('#tahunSel').change(function(){
+        let pilih_tahun = jQuery(this).val();
+        // window.location.href = "index.php?tahun="+pilih_tahun;   
+        // console.log(pilih_tahun);
+    });
+
+    jQuery('#tahunSelKurs').change(function(){
+        let pilih_tahun = jQuery(this).val();
+        kursChart.destroy();        
+        loadKursChart(pilih_tahun);
+    });
+
+    jQuery('#tahunSelHba').change(function(){
+        let pilih_tahun = jQuery(this).val();
+        hbaChart.destroy();        
+        loadHbaChart(pilih_tahun);
+    });
+
     
-    ctx.height = 150;
-    var myChart = new Chart( ctx, {
-        type: 'line',
-        data: {
-            labels: labelTanggal,
-            type: 'line',
-            defaultFontFamily: 'Montserrat',
-            datasets: [ {
-                data: labelKurs,
-                label: "Expense",
-                backgroundColor: 'rgba(0,103,255,.15)',
-                borderColor: 'rgba(0,103,255,0.5)',
-                borderWidth: 3.5,
-                pointStyle: 'circle',
-                pointRadius: 5,
-                pointBorderColor: 'transparent',
-                pointBackgroundColor: 'rgba(0,103,255,0.5)',
-                    }, ]
-        },
-        options: {
-            responsive: true,
-            tooltips: {
-                mode: 'index',
-                titleFontSize: 12,
-                titleFontColor: '#000',
-                bodyFontColor: '#000',
-                backgroundColor: '#fff',
-                titleFontFamily: 'Montserrat',
-                bodyFontFamily: 'Montserrat',
-                cornerRadius: 3,
-                intersect: false,
-            },
-            legend: {
-                display: false,
-                position: 'top',
-                labels: {
-                    usePointStyle: true,
-                    fontFamily: 'Montserrat',
-                },
+    
+    // var ctx = document.getElementById( "hba-chart" );
+    // ctx.height = 150;
+    // var myChart = new Chart( ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: labelTanggal,
+    //         type: 'line',
+    //         defaultFontFamily: 'Montserrat',
+    //         datasets: [ {
+    //             data: labelHba,
+    //             label: "Expense",
+    //             backgroundColor: 'rgba(0,103,255,.15)',
+    //             borderColor: 'rgba(0,103,255,0.5)',
+    //             borderWidth: 3.5,
+    //             pointStyle: 'circle',
+    //             pointRadius: 5,
+    //             pointBorderColor: 'transparent',
+    //             pointBackgroundColor: 'rgba(0,103,255,0.5)',
+    //                 }, ]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         tooltips: {
+    //             mode: 'index',
+    //             titleFontSize: 12,
+    //             titleFontColor: '#000',
+    //             bodyFontColor: '#000',
+    //             backgroundColor: '#fff',
+    //             titleFontFamily: 'Montserrat',
+    //             bodyFontFamily: 'Montserrat',
+    //             cornerRadius: 3,
+    //             intersect: false,
+    //         },
+    //         legend: {
+    //             display: false,
+    //             position: 'top',
+    //             labels: {
+    //                 usePointStyle: true,
+    //                 fontFamily: 'Montserrat',
+    //             },
 
 
-            },
-            scales: {
-                xAxes: [ {
-                    display: true,
-                    type: 'time',
-                    time: {
-                        displayFormats: {
-                            month: 'MMM YYYY'
-                        }
-                    },
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    scaleLabel: {
-                        display: false,
-                        labelString: 'Month'
-                    }
-                        } ],
-                yAxes: [ {
-                    display: true,
-                    gridLines: {
-                        display: true,
-                        drawBorder: true
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Value'
-                    }
-                        } ]
-            },
-            title: {
-                display: false,
-            }
-        }
-    } );
-
-
-    var ctx = document.getElementById( "hba-chart" );
-    ctx.height = 150;
-    var myChart = new Chart( ctx, {
-        type: 'line',
-        data: {
-            labels: labelTanggal,
-            type: 'line',
-            defaultFontFamily: 'Montserrat',
-            datasets: [ {
-                data: labelHba,
-                label: "Expense",
-                backgroundColor: 'rgba(0,103,255,.15)',
-                borderColor: 'rgba(0,103,255,0.5)',
-                borderWidth: 3.5,
-                pointStyle: 'circle',
-                pointRadius: 5,
-                pointBorderColor: 'transparent',
-                pointBackgroundColor: 'rgba(0,103,255,0.5)',
-                    }, ]
-        },
-        options: {
-            responsive: true,
-            tooltips: {
-                mode: 'index',
-                titleFontSize: 12,
-                titleFontColor: '#000',
-                bodyFontColor: '#000',
-                backgroundColor: '#fff',
-                titleFontFamily: 'Montserrat',
-                bodyFontFamily: 'Montserrat',
-                cornerRadius: 3,
-                intersect: false,
-            },
-            legend: {
-                display: false,
-                position: 'top',
-                labels: {
-                    usePointStyle: true,
-                    fontFamily: 'Montserrat',
-                },
-
-
-            },
-            scales: {
-                xAxes: [ {
-                    display: true,
-                    type: 'time',
-                    time: {
-                        displayFormats: {
-                            month: 'MMM YYYY'
-                        }
-                    },
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    scaleLabel: {
-                        display: false,
-                        labelString: 'Month'
-                    }
-                        } ],
-                yAxes: [ {
-                    display: true,
-                    gridLines: {
-                        display: true,
-                        drawBorder: true
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Value'
-                    }
-                        } ]
-            },
-            title: {
-                display: false,
-            }
-        }
-    } );
+    //         },
+    //         scales: {
+    //             xAxes: [ {
+    //                 display: true,
+    //                 type: 'time',
+    //                 time: {
+    //                     displayFormats: {
+    //                         month: 'MMM YYYY'
+    //                     }
+    //                 },
+    //                 gridLines: {
+    //                     display: false,
+    //                     drawBorder: false
+    //                 },
+    //                 scaleLabel: {
+    //                     display: false,
+    //                     labelString: 'Month'
+    //                 }
+    //                     } ],
+    //             yAxes: [ {
+    //                 display: true,
+    //                 gridLines: {
+    //                     display: true,
+    //                     drawBorder: true
+    //                 },
+    //                 scaleLabel: {
+    //                     display: true,
+    //                     labelString: 'Value'
+    //                 }
+    //                     } ]
+    //         },
+    //         title: {
+    //             display: false,
+    //         }
+    //     }
+    // } );
 
     <?php 
         $load = mysqli_query($conn, "SELECT SUM(transaksi.total_harga_rp) AS total_transaksi,
